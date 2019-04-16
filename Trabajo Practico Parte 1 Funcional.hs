@@ -8,7 +8,7 @@ import Text.Show.Functions --
 --Para que funcionen los test instalar lo siguiente mediante la terminal de windows
 --cabal update
 --cabal install hspec
-
+--nueva prueba a ver si funca bien.
 
 -- PUNTO 1
 
