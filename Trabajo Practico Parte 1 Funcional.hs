@@ -60,6 +60,15 @@ incrementarVelocidad unAuto | vocalesDelEnamorade unAuto <= 2 = incremetarXVeloc
 
 -- PUNTO 3
 
+tieneNafta :: Auto -> Bool
+tieneNafta unAuto = (nivelNafta unAuto) > 0
+
+velocidadMenorA100 :: Auto -> Bool
+velocidadMenorA100 unAuto = (velocidad unAuto) < 100
+
+puedeRealizarTruco :: Auto -> Bool
+puedeRealizarTruco unAuto = (tieneNafta unAuto) && (velocidadMenorA100 unAuto)
+
 -- PUNTO 4
 comboLoco = nitro.deReversaRocha
 -- queTrucazo = incrementarVelocidad.(fingirAmor otroEnamorade)+
