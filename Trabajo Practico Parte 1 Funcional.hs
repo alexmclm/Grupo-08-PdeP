@@ -28,6 +28,7 @@ rodra = Auto "Rodra" 0 50 "Taisa" (fingirAmor "petra")
 
 metrosPista = 1000
 
+deReversaRocha :: Auto -> Auto
 deReversaRocha unAuto = unAuto {nivelNafta = nivelNafta unAuto + (metrosPista*1/5)}
 
 impresionar :: Auto -> Auto
@@ -70,5 +71,18 @@ puedeRealizarTruco :: Auto -> Bool
 puedeRealizarTruco unAuto = (tieneNafta unAuto) && (velocidadMenorA100 unAuto)
 
 -- PUNTO 4
+
+comboLoco :: Auto -> Auto
 comboLoco = nitro.deReversaRocha
--- queTrucazo = incrementarVelocidad.(fingirAmor otroEnamorade)+
+
+queTrucazo :: String -> Auto -> Auto
+queTrucazo unEnamorade = (incrementarVelocidad.fingirAmor unEnamorade)
+
+naftaA0 :: Auto -> Auto
+naftaA0 unAuto = unAuto {nivelNafta = 0}
+
+multiplicaVelPor10SegunNafta :: Auto -> Auto
+multiplicaVelPor10SegunNafta unAuto = unAuto {velocidad = velocidad unAuto + ((*10).(nivelNafta)) unAuto}
+
+turbo :: Auto -> Auto
+turbo = naftaA0.multiplicaVelPor10SegunNafta
