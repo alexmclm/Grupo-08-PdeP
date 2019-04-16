@@ -9,6 +9,7 @@ import Text.Show.Functions --
 --cabal update
 --cabal install hspec
 --nueva prueba a ver si funca bien.
+--Prueba a ver si reconoce mi nombre cuando hago el commit.
 
 -- PUNTO 1
 
