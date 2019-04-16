@@ -3,7 +3,7 @@
 {-# LANGUAGE NoMonomorphismRestriction #-}
 import Data.List -- para los metodos coleccionables que no vienen en la guia de lenguaje
 import Data.Maybe -- por si llegan a usar un metodo de coleccion y devuelva Nothing or justElements
-import Text.Show.Functions -- 
+import Text.Show.Functions --
 -- import Test.Hspec -- para usar los test
 --Para que funcionen los test instalar lo siguiente mediante la terminal de windows
 --cabal update
@@ -16,24 +16,28 @@ import Text.Show.Functions --
 data Auto = Auto {
 				nombre :: String,
 				nivelNafta :: Float,
-				velocidad :: Int,
+				velocidad :: Float,
 				enamorade :: String,
-				trucoEspecial :: Auto -> Auto 
+				trucoEspecial :: Auto -> Auto
 				} deriving Show
 
-rochaMcQueen = Auto "RochaMcQueen" 300 0    "Ronco" 		deReversaRocha
-biankerr = Auto "biankerr" 500 		  20 	 "Tinch" 		impresionar
-gushtav = Auto "Gushtav" 200 		  130 	"PetiLaLinda"	nitro
--- rodra = Auto "Rodra" 0 				  50 	"Taisa" 	   fingirAmor  -- ver "mas adelante " como lo dice el tp, pero es una funcion
+rochaMcQueen = Auto "RochaMcQueen" 300 0 "Ronco" deReversaRocha
+biankerr = Auto "biankerr" 500 20 "Tinch" impresionar
+gushtav = Auto "Gushtav" 200 130 "PetiLaLinda" nitro
+rodra = Auto "Rodra" 0 50 "Taisa" (fingirAmor "petra")
 
+metrosPista = 1000
 
-deReversaRocha unAuto = unAuto {nivelNafta = nivelNafta unAuto + (1000*1/5)   }
+deReversaRocha unAuto = unAuto {nivelNafta = nivelNafta unAuto + (metrosPista*1/5)}
 
 impresionar :: Auto -> Auto
 impresionar unAuto =  unAuto {velocidad =  velocidad unAuto *2}
 
+incremetarXVelocidad :: Float -> Auto -> Auto
+incremetarXVelocidad incremento unAuto = unAuto {velocidad = velocidad unAuto + incremento}
+
 nitro :: Auto -> Auto
-nitro unAuto = unAuto {velocidad = velocidad unAuto + 15 }
+nitro = incremetarXVelocidad 15
 
 fingirAmor::  String -> Auto -> Auto
 fingirAmor otroEnamorade unAuto = unAuto {enamorade = otroEnamorade}
@@ -46,12 +50,13 @@ esVocal 'o' = True
 esVocal 'u' = True
 esVocal _ = False
 
-vocalesDelEnamorade :: Auto -> Int 
+vocalesDelEnamorade :: Auto -> Int
 vocalesDelEnamorade unAuto = length.filter esVocal $ (enamorade unAuto)
 
---incrementarVelocidad :: Auto -> Auto
--- incrementarVelocidad unAuto | between (1 2 (vocalesDelEnamorade unAuto)) = unAuto {velocidad = velocidad unAuto + 15} me chilla por que repito funcion
--- 						 | otherwise = unAuto
+incrementarVelocidad :: Auto -> Auto
+incrementarVelocidad unAuto | vocalesDelEnamorade unAuto <= 2 = incremetarXVelocidad 15 unAuto
+                            | vocalesDelEnamorade unAuto <= 4 = incremetarXVelocidad 20 unAuto
+                            | otherwise = incremetarXVelocidad 30 unAuto
 
 -- PUNTO 3
 
