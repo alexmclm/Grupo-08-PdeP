@@ -5,6 +5,9 @@ import Data.List -- para los metodos coleccionables que no vienen en la guia de 
 import Data.Maybe -- por si llegan a usar un metodo de coleccion y devuelva Nothing or justElements
 import Text.Show.Functions -- 
 -- import Test.Hspec -- para usar los test
+--Para que funcionen los test instalar lo siguiente mediante la terminal de windows
+--cabal update
+--cabal install hspec
 
 
 -- PUNTO 1
