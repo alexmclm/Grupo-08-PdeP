@@ -26,7 +26,7 @@ ejecutarTest = hspec $ do
 		it "Rocha puede realizar su truco" (puedeRealizarTruco rochaMcQueen)
 		it "Gushtav no puede usar su truco" (not(puedeRealizarTruco gushtav))
 		it "Rodra no puede usar su truco" (not(puedeRealizarTruco rodra))
-  describe "Test del punto 3.4" $ do
+        describe "Test del punto 3.4" $ do
 		it "La nafta de rocha despues de comboLoco debe ser 500" $ (nivelNafta.comboLoco) rochaMcQueen `shouldBe` 500
 		it "La velocidad de rocha despues de comboLoco debe ser 15" $ (velocidad.comboLoco) rochaMcQueen `shouldBe` 15
 		it "La velocidad de Rodra despues de usar queTrucazo con murcielago debe ser 80" $ (velocidad.queTrucazo "murcielago") rodra `shouldBe` 80
