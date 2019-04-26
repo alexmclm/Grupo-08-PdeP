@@ -53,7 +53,12 @@ rodra = Auto "Rodra" 0 50 "Taisa" (fingirAmor "petra")
 metrosPista = 1000
 
 deReversa :: Auto -> Auto
-deReversa unAuto = unAuto {nivelNafta = nivelNafta unAuto + (metrosPista*1/5)}
+deReversa unAuto = unAuto {nivelNafta = nivelNafta unAuto + ((velocidad unAuto)*1/5)}
+
+{- A fin de que los test no fallen es necesario usar este "deReversa" puesto que para la segunda parte fue modificado
+deReversa :: Auto -> Auto
+deReversa unAuto = unAuto {nivelNafta = nivelNafta unAuto + (metrosPista*1/5)
+-}
 
 impresionar :: Auto -> Auto
 impresionar unAuto =  unAuto {velocidad =  velocidad unAuto *2}
@@ -112,3 +117,23 @@ multiplicaVelPor10SegunNafta unAuto = unAuto {velocidad = velocidad unAuto + ((*
 
 turbo :: Auto -> Auto
 turbo = naftaA0.multiplicaVelPor10SegunNafta
+
+------------------------ PARTE 2 ------------------------
+
+-- Punto 0 --
+
+--Modificación de truco de Rocha, se expresa en comentario a fin de no definirlo dos veces, pero si ver reflejado el progreso
+{-
+deReversa :: Auto -> Auto
+deReversa unAuto = unAuto {nivelNafta = nivelNafta unAuto + ((velocidad unAuto)*1/5)}
+-}
+
+-- Punto 1 --
+
+data Carrera = Carrera {
+     cantidadDeVueltas :: Int,
+     longitudDePista :: Float,
+     publico :: String,
+     trampa :: Auto -> Auto,
+     participantes :: Auto
+} deriving Show
