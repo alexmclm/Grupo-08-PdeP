@@ -20,8 +20,8 @@ ejecutarTest = hspec $ do
   describe "Test del punto 3.2" $ do
     it "Velocidad de rocha despues de incrementar velocidad es 15" $ (velocidad.incrementarVelocidad) rochaMcQueen `shouldBe` 15
     it "Velocidad de biankerr despues de incrementar velocidad es 35" $ (velocidad.incrementarVelocidad) biankerr `shouldBe` 35
-    it "Velocidad de gushtav despues de incrementar velocidad es 35" $ (velocidad.incrementarVelocidad) gushtav `shouldBe` 160
-    it "Velocidad de rodra despues de incrementar velocidad es 35" $ (velocidad.incrementarVelocidad) rodra `shouldBe` 70
+    it "Velocidad de gushtav despues de incrementar velocidad es 160" $ (velocidad.incrementarVelocidad) gushtav `shouldBe` 160
+    it "Velocidad de rodra despues de incrementar velocidad es 70" $ (velocidad.incrementarVelocidad) rodra `shouldBe` 70
   describe "Test del punto 3.3" $ do
     it "Rocha puede realizar su truco" $ (puedeRealizarTruco rochaMcQueen) `shouldBe` True
     it "Gushtav no puede usar su truco" $ (puedeRealizarTruco gushtav) `shouldBe` False
@@ -119,6 +119,20 @@ turbo :: Auto -> Auto
 turbo = naftaA0.multiplicaVelPor10SegunNafta
 
 ------------------------ PARTE 2 ------------------------
+ejecutarTest2 = hspec $ do
+  describe "Test 3.0" $ do
+    it "nafta de rochaMcQueen luego de hacer el truco favorito, debe ser 490" $ (nivelNafta.deReversa) rochaMcQueen `shouldBe` 490
+    it "nafta de rodra tras 'impresionar', debe ser 10" $ (nivelNafta.impresionar) rodra `shouldBe` 10
+  describe "Test 3.2" $ do
+    it "cantidad de participantes luego de sacarAlPistero , debe ser 3" $ (length (participantes.sacarAlPistero $ potreroFunes)) `shouldBe` 3
+    it "rochaMcQueen no participa en potreroFunes, False" $  any(== "rochaMcQueen") (map nombre (participantes.sacarAlPistero $ potreroFunes)) `shouldBe` False
+  --  it "cantidad de participantes luego de pocaReserva en potreroFunes, debe ser 3" $ (pocaReserva) `shouldBe` 3
+  --  it " rodra ya no deberia participar mas luego de aplicar pocaReserva , False" $ () `shouldBe` False
+    it "cantidad de participantes luego de podio a potreroFunes, debe ser 3" $ (length ((participantes.podio) potreroFunes)) `shouldBe` 3
+  --  it "velocidad del ultimo participante (rodra) luego de la lluvia, debe ser 40 " $  
+
+
+-- abstraer la funciones para los test
 
 -- Punto 0 --
 
@@ -133,7 +147,34 @@ deReversa unAuto = unAuto {nivelNafta = nivelNafta unAuto + ((velocidad unAuto)*
 data Carrera = Carrera {
      cantidadDeVueltas :: Int,
      longitudDePista :: Float,
-     publico :: String,
-     trampa :: Auto -> Auto,
-     participantes :: Auto
+     publico :: [String],
+     trampa :: Carrera -> Carrera, -- las funciones estan hecha para ser aplicadas a las carreras
+     participantes :: [Auto] -- debe ser lista, sino rompe, ademas de que se esta coleccionando en una jaja
 } deriving Show
+
+-- Punto 3.1 --
+
+potreroFunes = Carrera 3 5.0 ["Ronco", "Tinch", "Dodian"] sacarAlPistero [rochaMcQueen,biankerr,gushtav,rodra]
+
+-- Punto 3.2 --
+modificarLista :: Carrera -> Carrera
+modificarLista unaCarrera = unaCarrera { participantes = sacarUnParticipante  unaCarrera}
+
+sacarUnParticipante :: Carrera -> [Auto] -- dice el´primer participante, osea dejo la cola y saco al primero
+sacarUnParticipante unaCarrera = tail (participantes unaCarrera)
+
+sacarAlPistero :: Carrera -> Carrera
+sacarAlPistero unaCarrera = modificarLista unaCarrera
+
+--lluvia unaCarrera = unaCarrera { participantes = }
+
+listaDeNivelDeNafta unaCarrera = map nivelNafta (participantes unaCarrera)
+
+-- pocaReserva unaCarrera = unaCarrera { participantes = filter (listaDeNivelDeNafta unaCarrera) (participantes unaCarrera)}
+
+podio :: Carrera -> Carrera
+podio unaCarrera = unaCarrera { participantes = take 3 (participantes unaCarrera)}
+
+
+-- Punto 3.3 --
+-- terminar
