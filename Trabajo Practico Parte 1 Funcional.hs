@@ -124,12 +124,13 @@ ejecutarTest2 = hspec $ do
     it "nafta de rochaMcQueen luego de hacer el truco favorito, debe ser 490" $ (nivelNafta.deReversa) rochaMcQueen `shouldBe` 490
     it "nafta de rodra tras 'impresionar', debe ser 10" $ (nivelNafta.impresionar) rodra `shouldBe` 10
   describe "Test 3.2" $ do
-    it "cantidad de participantes luego de sacarAlPistero , debe ser 3" $ (length (participantes.sacarAlPistero $ potreroFunes)) `shouldBe` 3
-    it "rochaMcQueen no participa en potreroFunes, False" $  any(== "rochaMcQueen") (map nombre (participantes.sacarAlPistero $ potreroFunes)) `shouldBe` False
-  --  it "cantidad de participantes luego de pocaReserva en potreroFunes, debe ser 3" $ (pocaReserva) `shouldBe` 3
-  --  it " rodra ya no deberia participar mas luego de aplicar pocaReserva , False" $ () `shouldBe` False
-    it "cantidad de participantes luego de podio a potreroFunes, debe ser 3" $ (length ((participantes.podio) potreroFunes)) `shouldBe` 3
+    it "cantidad de participantes luego de sacarAlPistero , debe ser 3" $ ((length.sacarAlPistero) (participantes potreroFunes)) `shouldBe` 3
+    it "rochaMcQueen no participa en potreroFunes luego de sacarAlPistero, False" $  elem "rochaMcQueen" (map nombre (sacarAlPistero (participantes potreroFunes)))  `shouldBe` False
+    it "cantidad de participantes luego de pocaReserva en potreroFunes, debe ser 2" $ length (pocaReserva (participantes potreroFunes)) `shouldBe` 2 -- estara mal enunciado ? observar velocidad data Auto
+    it " rodra ya no deberia participar mas luego de aplicar pocaReserva , False" $ elem "rodra" (map nombre (pocaReserva (participantes potreroFunes))) `shouldBe` False
+    it "cantidad de participantes luego de podio a potreroFunes, debe ser 3" $ ((length.podio) (participantes potreroFunes)) `shouldBe` 3
   --  it "velocidad del ultimo participante (rodra) luego de la lluvia, debe ser 40 " $  
+
 
 
 -- abstraer la funciones para los test
@@ -148,7 +149,7 @@ data Carrera = Carrera {
      cantidadDeVueltas :: Int,
      longitudDePista :: Float,
      publico :: [String],
-     trampa :: Carrera -> Carrera, -- las funciones estan hecha para ser aplicadas a las carreras
+     trampa :: [Auto] -> [Auto], -- las funciones estan hecha para ser aplicadas a las carreras
      participantes :: [Auto] -- debe ser lista, sino rompe, ademas de que se esta coleccionando en una jaja
 } deriving Show
 
@@ -157,24 +158,30 @@ data Carrera = Carrera {
 potreroFunes = Carrera 3 5.0 ["Ronco", "Tinch", "Dodian"] sacarAlPistero [rochaMcQueen,biankerr,gushtav,rodra]
 
 -- Punto 3.2 --
-modificarLista :: Carrera -> Carrera
-modificarLista unaCarrera = unaCarrera { participantes = sacarUnParticipante  unaCarrera}
 
-sacarUnParticipante :: Carrera -> [Auto] -- dice el´primer participante, osea dejo la cola y saco al primero
-sacarUnParticipante unaCarrera = tail (participantes unaCarrera)
+sacarAlPistero :: [Auto] -> [Auto] -- dice el´primer participante, osea dejo la cola y saco al primero
+sacarAlPistero unosAutos = tail unosAutos
 
-sacarAlPistero :: Carrera -> Carrera
-sacarAlPistero unaCarrera = modificarLista unaCarrera
-
---lluvia unaCarrera = unaCarrera { participantes = }
-
-listaDeNivelDeNafta unaCarrera = map nivelNafta (participantes unaCarrera)
-
--- pocaReserva unaCarrera = unaCarrera { participantes = filter (listaDeNivelDeNafta unaCarrera) (participantes unaCarrera)}
-
-podio :: Carrera -> Carrera
-podio unaCarrera = unaCarrera { participantes = take 3 (participantes unaCarrera)}
+--lluvia :: [Auto] -> [Auto]
+--lluvia unosAutos =  map ((incremetarXVelocidad (-10).velocidad) unosAutos 
+-- aumentaVelocidad unaVelocidad unaCarrera = map unaVelocidad (participantes unaCarrera)
 
 
--- Punto 3.3 --
--- terminar
+neutralizarTrucos :: [Auto] -> [Auto] 
+neutralizarTrucos unosAutos = id unosAutos
+
+
+pocaReserva :: [Auto] -> [Auto]
+pocaReserva unosAutos = filter ((<30).velocidad) unosAutos
+
+podio :: [Auto] -> [Auto]
+podio unosAutos = take 3 unosAutos
+
+-- PUNTO 3.3 --
+
+--darVuelta:: Carrera -> Carrera
+--darVuelta unaCarrera = restarCombustible cantidadLitros.
+--restarCombustible cabtudadLitros unaCarrera = 1 * (((velocidad.participantes)*longitudDePista) unaCarrera)
+
+-- PUNTO 3.4 -- 
+-- quienGana unaCarrera = foldr usa correrCarrera
