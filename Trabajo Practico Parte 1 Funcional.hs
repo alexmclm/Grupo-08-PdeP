@@ -129,7 +129,7 @@ ejecutarTest2 = hspec $ do
     it "cantidad de participantes luego de pocaReserva en potreroFunes, debe ser 2" $ length (pocaReserva (participantes potreroFunes)) `shouldBe` 2 -- estara mal enunciado ? observar velocidad data Auto
     it " rodra ya no deberia participar mas luego de aplicar pocaReserva , False" $ elem "rodra" (map nombre (pocaReserva (participantes potreroFunes))) `shouldBe` False
     it "cantidad de participantes luego de podio a potreroFunes, debe ser 3" $ ((length.podio) (participantes potreroFunes)) `shouldBe` 3
-  --  it "velocidad del ultimo participante (rodra) luego de la lluvia, debe ser 40 " $  
+  --  it "velocidad del ultimo participante (rodra) luego de la lluvia, debe ser 40 " $
 
 
 
@@ -159,17 +159,14 @@ potreroFunes = Carrera 3 5.0 ["Ronco", "Tinch", "Dodian"] sacarAlPistero [rochaM
 
 -- Punto 3.2 --
 
-sacarAlPistero :: [Auto] -> [Auto] -- dice el´primer participante, osea dejo la cola y saco al primero
+sacarAlPistero :: [Auto] -> [Auto] -- dice el primer participante, osea dejo la cola y saco al primero
 sacarAlPistero unosAutos = tail unosAutos
 
---lluvia :: [Auto] -> [Auto]
---lluvia unosAutos =  map ((incremetarXVelocidad (-10).velocidad) unosAutos 
--- aumentaVelocidad unaVelocidad unaCarrera = map unaVelocidad (participantes unaCarrera)
+lluvia :: [Auto] -> [Auto]
+lluvia unosAutos =  map (incremetarXVelocidad (-10)) unosAutos
 
-
-neutralizarTrucos :: [Auto] -> [Auto] 
+neutralizarTrucos :: [Auto] -> [Auto]
 neutralizarTrucos unosAutos = id unosAutos
-
 
 pocaReserva :: [Auto] -> [Auto]
 pocaReserva unosAutos = filter ((<30).velocidad) unosAutos
@@ -182,6 +179,18 @@ podio unosAutos = take 3 unosAutos
 --darVuelta:: Carrera -> Carrera
 --darVuelta unaCarrera = restarCombustible cantidadLitros.
 --restarCombustible cabtudadLitros unaCarrera = 1 * (((velocidad.participantes)*longitudDePista) unaCarrera)
+consumoNafta :: Float -> Auto -> Float
+consumoNafta kilometrosPista unAuto = (kilometrosPista/10.0*(velocidad unAuto))
 
--- PUNTO 3.4 -- 
+estaEnamoradeEnPublico :: Auto -> Carrera -> Bool
+estaEnamoradeEnPublico unAuto unaCarrera = elem (enamorade unAuto) (publico unaCarrera)
+
+tieneEnamoradeEnPublicoYPuedeHacerTruco unaCarrera = (estaEnamoradeEnPublico (participantes unaCarrera) unaCarrera) && (puedeRealizarTruco (participantes unaCarrera))
+
+--haceElTruco unAuto unaCarrera | tieneEnamoradeEnPublicoYPuedeHacerTruco unAuto unaCarrera = trucoEspecial unAuto unAuto
+  --                            | otherwise = unAuto
+
+--darVuelta unaCarrera = map (haceElTruco unaCarrera) (participantes unaCarrera)
+
+-- PUNTO 3.4 --
 -- quienGana unaCarrera = foldr usa correrCarrera
