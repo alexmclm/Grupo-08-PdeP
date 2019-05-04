@@ -194,3 +194,9 @@ tieneEnamoradeEnPublicoYPuedeHacerTruco unaCarrera = (estaEnamoradeEnPublico (pa
 
 -- PUNTO 3.4 --
 -- quienGana unaCarrera = foldr usa correrCarrera
+
+-- PUNTO 3.5  
+elGranTruco :: Auto -> [Auto -> Auto] ->  Auto
+elGranTruco unAuto unosTrucos  = (listarTrucos unosTrucos) unAuto
+
+listarTrucos unosTrucos = foldl1 (.) unosTrucos 
