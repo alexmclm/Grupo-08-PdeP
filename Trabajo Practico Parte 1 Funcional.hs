@@ -175,26 +175,38 @@ podio :: [Auto] -> [Auto]
 podio unosAutos = take 3 unosAutos
 
 -- PUNTO 3.3 --
+-- modifico este pedazo de codigo por que sino, me rompe con los tipos caundo quiera modificar a los participantes de la carrera
+combustibleEnCarrera :: Carrera -> Auto -> Auto
+combustibleEnCarrera unaCarrera unAuto = unAuto {nivelNafta = (longitudDePista unaCarrera) / 10* (velocidad unAuto) } 
 
---darVuelta:: Carrera -> Carrera
---darVuelta unaCarrera = restarCombustible cantidadLitros.
---restarCombustible cabtudadLitros unaCarrera = 1 * (((velocidad.participantes)*longitudDePista) unaCarrera)
-consumoNafta :: Float -> Auto -> Float
-consumoNafta kilometrosPista unAuto = (kilometrosPista/10.0*(velocidad unAuto))
+estaElEnamoradeEnElPublico :: Carrera -> Auto -> Bool
+estaElEnamoradeEnElPublico unaCarrera unAuto  = elem (enamorade unAuto) (publico unaCarrera)
 
-estaEnamoradeEnPublico :: Auto -> Carrera -> Bool
-estaEnamoradeEnPublico unAuto unaCarrera = elem (enamorade unAuto) (publico unaCarrera)
+-- trato de obtener la funcion de que el participante que al cumplir estas condiciones, haga su truco especial, entonces devolveria una funcion
+-- es lo que yo interpreto , ya de ahi al aplicar dar la vuelta de toco a los participantes
+hacerTruco :: Carrera -> Auto -> Auto
+hacerTruco unaCarrera unAuto | (estaElEnamoradeEnElPublico unaCarrera unAuto) && (puedeRealizarTruco unAuto) = (trucoEspecial unAuto) unAuto
+                             | otherwise = unAuto
 
-tieneEnamoradeEnPublicoYPuedeHacerTruco unaCarrera = (estaEnamoradeEnPublico (participantes unaCarrera) unaCarrera) && (puedeRealizarTruco (participantes unaCarrera))
 
---haceElTruco unAuto unaCarrera | tieneEnamoradeEnPublicoYPuedeHacerTruco unAuto unaCarrera = trucoEspecial unAuto unAuto
-  --                            | otherwise = unAuto
+sufrirTrampaCarrera unaCarrera = trampa unaCarrera
 
---darVuelta unaCarrera = map (haceElTruco unaCarrera) (participantes unaCarrera)
+aplicarTrucoACarrera :: Carrera -> Carrera
+aplicarTrucoACarrera unaCarrera =  modificarCarrera (map (hacerTruco unaCarrera)) unaCarrera
 
--- PUNTO 3.4 --
--- quienGana unaCarrera = foldr usa correrCarrera
+aplicarNaftaACarrera:: Carrera -> Carrera
+aplicarNaftaACarrera unaCarrera = modificarCarrera (map (combustibleEnCarrera unaCarrera )) unaCarrera
 
+darVuelta unaCarrera = (aplicarNaftaACarrera.aplicarTrucoACarrera) unaCarrera
+
+
+-- por que modificara a la carrera en base a los trucos
+modificarCarrera :: ([Auto]->[Auto]) -> Carrera -> Carrera
+modificarCarrera funcion unaCarrera = unaCarrera { participantes = (funcion.participantes) unaCarrera}
+
+-- creo que hay que flashearla mucho mas jajajaa, con una tupla? , por que debo detenerme caundo termine de dar las 3 vueltas de potreroFunes
+
+--correrCarrera unaCarrera = 
 -- PUNTO 3.5  
 elGranTruco :: Auto -> [Auto -> Auto] ->  Auto
 elGranTruco unAuto unosTrucos  = (listarTrucos unosTrucos) unAuto
