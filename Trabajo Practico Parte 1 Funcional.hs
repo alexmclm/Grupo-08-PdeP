@@ -211,4 +211,4 @@ modificarCarrera funcion unaCarrera = unaCarrera { participantes = (funcion.part
 elGranTruco :: Auto -> [Auto -> Auto] ->  Auto
 elGranTruco unAuto unosTrucos  = (listarTrucos unosTrucos) unAuto
 
-listarTrucos unosTrucos = foldl1 (.) unosTrucos 
+listarTrucos unosTrucos = foldl1 (.) unosTrucos
