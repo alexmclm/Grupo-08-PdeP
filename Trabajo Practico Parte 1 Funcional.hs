@@ -169,7 +169,7 @@ neutralizarTrucos :: [Auto] -> [Auto]
 neutralizarTrucos unosAutos = id unosAutos
 
 pocaReserva :: [Auto] -> [Auto]
-pocaReserva unosAutos = filter ((<30).velocidad) unosAutos
+pocaReserva unosAutos = filter ((>30).velocidad) unosAutos
 
 podio :: [Auto] -> [Auto]
 podio unosAutos = take 3 unosAutos
@@ -189,7 +189,9 @@ hacerTruco unaCarrera unAuto | (estaElEnamoradeEnElPublico unaCarrera unAuto) &&
                              | otherwise = unAuto
 
 
-sufrirTrampaCarrera unaCarrera = trampa unaCarrera
+-- sufrirTrampaCarrera unaCarrera = (trampa unaCarrera)
+sufrirTrampaCarrera :: Carrera -> Carrera
+sufrirTrampaCarrera unaCarrera = modificarCarrera ((trampa unaCarrera)) unaCarrera
 
 aplicarTrucoACarrera :: Carrera -> Carrera
 aplicarTrucoACarrera unaCarrera =  modificarCarrera (map (hacerTruco unaCarrera)) unaCarrera
@@ -197,7 +199,9 @@ aplicarTrucoACarrera unaCarrera =  modificarCarrera (map (hacerTruco unaCarrera)
 aplicarNaftaACarrera:: Carrera -> Carrera
 aplicarNaftaACarrera unaCarrera = modificarCarrera (map (combustibleEnCarrera unaCarrera )) unaCarrera
 
-darVuelta unaCarrera = (aplicarNaftaACarrera.aplicarTrucoACarrera) unaCarrera
+
+darVuelta unaCarrera = (sufrirTrampaCarrera.aplicarTrucoACarrera.aplicarNaftaACarrera) unaCarrera
+
 
 
 -- por que modificara a la carrera en base a los trucos
@@ -207,8 +211,21 @@ modificarCarrera funcion unaCarrera = unaCarrera { participantes = (funcion.part
 -- creo que hay que flashearla mucho mas jajajaa, con una tupla? , por que debo detenerme caundo termine de dar las 3 vueltas de potreroFunes
 
 --correrCarrera unaCarrera =
+-- Punto 3.4-
+
+repetir 0 _ unaCarrera = unaCarrera
+repetir vueltas funcionVuelta unaCarrera = repetir (vueltas - 1) funcionVuelta (funcionVuelta unaCarrera)
+
+
+correr unaCarrera = repetir (cantidadDeVueltas unaCarrera) darVuelta unaCarrera
+
+ --quienGana unaCarrera = darVuelta
+
 -- PUNTO 3.5
 elGranTruco :: Auto -> [Auto -> Auto] ->  Auto
 elGranTruco unAuto unosTrucos  = (listarTrucos unosTrucos) unAuto
 
 listarTrucos unosTrucos = foldl1 (.) unosTrucos
+
+--Armar funcion de velocidad de auto (velocidad participantes unaCarrera)
+--Evaluacion diferida y depende del truco para la lista infinita, preguntas teoria 
