@@ -129,13 +129,21 @@ ejecutarTest2 = hspec $ do
     it "cantidad de participantes luego de pocaReserva en potreroFunes, debe ser 2" $ length (pocaReserva (participantes potreroFunes)) `shouldBe` 2 -- estara mal enunciado ? observar velocidad data Auto
     it " rodra ya no deberia participar mas luego de aplicar pocaReserva , False" $ elem "rodra" (map nombre (pocaReserva (participantes potreroFunes))) `shouldBe` False
     it "cantidad de participantes luego de podio a potreroFunes, debe ser 3" $ ((length.podio) (participantes potreroFunes)) `shouldBe` 3
-  --  it "velocidad del ultimo participante (rodra) luego de la lluvia, debe ser 40 " $
+--    it "velocidad del ultimo participante (rodra) luego de la lluvia, debe ser 40 " $ (nombre.(lluvia (participantes potreroFunes)) `shouldBe` "rodra"
+--describe "Test 3.3" $ do
+--   it "nivel de nafta del primer participante (de biankerr) luego de dar una vuelta, debe ser 490" $ head (map nivelNafta ((participantes.darVuelta) potreroFunes) `shouldBe` 490
+--   it "velocidad del primer participantes (biankerr) luego de dar una vuelta, debe ser 40 " $ head (map velocidad ((participantes.darVuelta) potreroFunes) `shouldBe` 40
+--   it "cantidad de participantes luego de dar 2 vueltas en potreroFunes, debe ser 2 " $ length (map (participantes.darVuelta.darVuelta) potreroFunes)) `shouldBe` 2
+--   it "luego de dar 2 vueltas , saber el nivelDeNafta del Primer participante (gushtav), debe ser 70" $ head (map ((participantes.darVuelta.darVuelta) potreroFunes)) `shouldBe` 70
+--   it " rodra debe ser el unico luego de correr la carrera, True " $ head (map nombre ((participantes.correr) potreroFunes)) `shouldBe` "rodra"
+--describe "Test 3.4" $ do
+--   it " ganador de la carrera potreroFunes, debe ser rodra" $ quienGana potreroFunes `shouldBe` "rodra"
+--   it ""
+--describe "Test 3.5" $ do
+--   it " velocidad de rodra tras realizar el gran truco con nitro deReversa e impresionar" $ (velocidad.elGranTruco) rodra `shouldBe` 140
+--   it " nivelDeNafta de rodra  tras ralizar el granTrcuo" , debe ser 13 $ (nivelDeNafta.elGranTruco) rodra `shouldBe` 13
 
 
-
--- abstraer la funciones para los test
-
--- Punto 0 --
 
 --Modificación de truco de Rocha, se expresa en comentario a fin de no definirlo dos veces, pero si ver reflejado el progreso
 {-
