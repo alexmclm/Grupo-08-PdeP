@@ -208,18 +208,19 @@ darVuelta unaCarrera = (sufrirTrampaCarrera.aplicarTrucoACarrera.aplicarNaftaACa
 modificarCarrera :: ([Auto]->[Auto]) -> Carrera -> Carrera
 modificarCarrera funcion unaCarrera = unaCarrera { participantes = (funcion.participantes) unaCarrera}
 
--- creo que hay que flashearla mucho mas jajajaa, con una tupla? , por que debo detenerme caundo termine de dar las 3 vueltas de potreroFunes
-
---correrCarrera unaCarrera =
--- Punto 3.4-
-
 repetir 0 _ unaCarrera = unaCarrera
 repetir vueltas funcionVuelta unaCarrera = repetir (vueltas - 1) funcionVuelta (funcionVuelta unaCarrera)
 
-
 correr unaCarrera = repetir (cantidadDeVueltas unaCarrera) darVuelta unaCarrera
 
- --quienGana unaCarrera = darVuelta
+-- PUNTO 3.4 --
+
+mayorVelocidad unAuto otroAuto | velocidad unAuto < velocidad otroAuto = otroAuto
+                               | otherwise = unAuto
+
+elMasVeloz unaCarrera = foldl mayorVelocidad ((head.participantes) unaCarrera) (participantes unaCarrera)                               
+quienGana unaCarrera = (elMasVeloz.correr) unaCarrera
+
 
 -- PUNTO 3.5
 elGranTruco :: Auto -> [Auto -> Auto] ->  Auto
