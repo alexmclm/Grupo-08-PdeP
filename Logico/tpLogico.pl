@@ -122,4 +122,25 @@ sePresentaMismaProvincia(Provincia):-
 	Partido \= Partido2.	
 
 %% PUNTO 3
-%% leGana(Cnadidato1,Candidato2,Provincia):-
+leGana(Candidato1,Candidato2,Provincia):-
+	compitenMismaProvincia(Candidato1,Provincia),
+	compitenMismaProvincia(Candidato2,Provincia),
+	analizarPorcentajeVoto(Candidato1,Candidato2,Provincia).
+	%% pertenecenAmismoPartido(Candidato1,Candidato2,Provincia).
+
+%% para el punto1: aunque el pto 3 dice si ambos candidatos pertenecen al mismo partido, la relacion se cumple si es en la misma provincia
+compitenMismaProvincia(Candidato,Provincia):-
+	candidato(Candidato,Partido),
+	postulacion(Partido,Provincia).
+%%	Partido1 \= Partido2. %% saco o no saco?
+	
+analizarPorcentajeVoto(Candidato1,Candidato2,Provincia):-
+	porcentajeVoto(Candidato1,Provincia,Porcentaje1),
+	porcentajeVoto(Candidato2,Provincia,Porcentaje2),
+		Porcentaje1>Porcentaje2.
+
+porcentajeVoto(Candidato,Provincia,Porcentaje):-
+	candidato(Candidato,Partido),
+	intencionDeVotosEn(Provincia,Partido,Porcentaje).
+
+	
