@@ -59,19 +59,67 @@ habitantes(laPampa,349299).
 habitantes(corrientes,992595).
 habitantes(misiones,1189446).
 
+%% BDC Las PASO : intencionDeVotosEn​(Provincia,Partido,Porcentaje).
+intencionDeVotosEn(buenosAires,rojo,40).
+intencionDeVotosEn(buenosAires,azul,30).
+intencionDeVotosEn(buenosAires,amarillo,30).
+intencionDeVotosEn(chaco,rojo,50).
+intencionDeVotosEn(chaco,azul,20).
+intencionDeVotosEn(chaco,amarillo,0).
+intencionDeVotosEn(tierraDelFuego,rojo,40).
+intencionDeVotosEn(tierraDelFuego,azul,20).
+intencionDeVotosEn(tierraDelFuego,amarillo,10).
+intencionDeVotosEn(sanLuis,rojo,50).
+intencionDeVotosEn(sanLuis,azul,20).
+intencionDeVotosEn(sanLuis,amarillo,0).
+intencionDeVotosEn(neuquen,rojo,80).
+intencionDeVotosEn(neuquen,azul,10).
+intencionDeVotosEn(neuquen,amarillo,0).
+intencionDeVotosEn(santaFe,rojo,20).
+intencionDeVotosEn(santaFe,azul,40).
+intencionDeVotosEn(santaFe,amarillo,40).
+intencionDeVotosEn(cordoba,rojo,10).
+intencionDeVotosEn(cordoba,azul,60).
+intencionDeVotosEn(cordoba,amarillo,20).
+intencionDeVotosEn(chubut,rojo,15).
+intencionDeVotosEn(chubut,azul,15).
+intencionDeVotosEn(chubut,amarillo,15).
+intencionDeVotosEn(formosa,rojo,0).
+intencionDeVotosEn(formosa,azul,0).
+intencionDeVotosEn(formosa,amarillo,0).
+intencionDeVotosEn(tucuman,rojo,40).
+intencionDeVotosEn(tucuman,azul,40).
+intencionDeVotosEn(tucuman,amarillo,20).
+intencionDeVotosEn(salta,rojo,30).
+intencionDeVotosEn(salta,azul,60).
+intencionDeVotosEn(salta,amarillo,10).
+intencionDeVotosEn(santaCruz,rojo,10).
+intencionDeVotosEn(santaCruz,azul,20).
+intencionDeVotosEn(santaCruz,amarillo,30).
+intencionDeVotosEn(laPampa,rojo,25).
+intencionDeVotosEn(laPampa,azul,25).
+intencionDeVotosEn(laPampa,amarillo,40).
+intencionDeVotosEn(corrientes,rojo,30).
+intencionDeVotosEn(corrientes,azul,30).
+intencionDeVotosEn(corrientes,amarillo,10).
+intencionDeVotosEn(misiones,rojo,90).
+intencionDeVotosEn(misiones,azul,0).
+intencionDeVotosEn(misiones,amarillo,0).
 
+%% PUNTO 2
 
+esPicante(Provincia):-
+	sePresentaMismaProvincia(Provincia),
+	habitantes(Provincia,Cantidad),
+	Cantidad > 1000000.
 
+sePresentaMismaProvincia(Provincia):-
+	candidato(Nombre,Partido),
+	postulacion(Partido,Provincia),
+	candidato(Nombre2,Partido),
+	postulacion(Partido2,Provincia),
+	Nombre \= Nombre2,
+	Partido \= Partido2.	
 
-
-
-
-
-
-
-
-
-
-
-
-
+%% PUNTO 3
+%% leGana(Cnadidato1,Candidato2,Provincia):-
