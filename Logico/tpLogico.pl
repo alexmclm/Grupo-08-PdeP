@@ -143,4 +143,52 @@ porcentajeVoto(Candidato,Provincia,Porcentaje):-
 	candidato(Candidato,Partido),
 	intencionDeVotosEn(Provincia,Partido,Porcentaje).
 
+leGana(Candidato1,Candidato2,Provincia):-
+	pertenecenAmismoPartido(Candidato1,Candidato2,Provincia).
+
+pertenecenAmismoPartido(Candidato1,Candidato2,Provincia):-
+	candidato(Candidato1,Partido1),
+	candidato(Candidato2,Partido2),
+	postulacion(Partido1,Provincia),
+	postulacion(Partido2,Provincia),
+	Partido1 = Partido2.	
+%% frank es el unico que se postua en santafe, por eso gana ? ....
+
+%% PUNTO 4 
+
+elGranCandidato(UnCandidato):-
+	esCandidato(UnCandidato),
+	forall((candidato(UnCandidato,Partido),postulacion(Partido,Provincia)),leGana(UnCandidato,_,Provincia)),
+	%% esElMasJoven(UnCandidato).	
+esCandidato(UnCandidato):- candidato(UnCandidato,_).
+
+/*
+esElMasJoven(UnCandidato):- 
+	candidato(UnCandidato,Partido),
+	edad(unCandidato,_).
+*/
+
+%% PUNTO 5
+
+%% PUNTO 6
+%%promete(Partido,Promesa).
+promete(azul,construir(1000,hospirales)).
+promete(azul,construir(100,jardines)).
+promete(azul,construir(5,escuelas)).
+promete(amarillo,construir(100,hospitales)).
+promete(amarillo,construir(1,universidad)).
+promete(amarillo,construir(200,comisarias)).
+promete(rojo,generarPuestosTrabajo(800000)).
+promete(amarillo,generarPuestosTrabajo(100000)).
+promete(azul,inflacion(Inflacion)):-
+	Inflacion > 2,
+	Inflacion < 4.
+promete(amarillo,inflacion(Inflacion)):-
+	Inflacion > 1,
+	Inflacion < 15.
+promete(amarillo,inflacion(Inflacion)):-
+	Inflacion > 10,
+	Inflacion < 30.		
+
+%% PUNTO 7
 	
