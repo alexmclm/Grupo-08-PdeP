@@ -60,6 +60,7 @@ habitantes(corrientes,992595).
 habitantes(misiones,1189446).
 
 %% BDC Las PASO : intencionDeVotosEn​(Provincia,Partido,Porcentaje).
+
 intencionDeVotosEn(buenosAires,rojo,40).
 intencionDeVotosEn(buenosAires,azul,30).
 intencionDeVotosEn(buenosAires,amarillo,30).
@@ -105,6 +106,7 @@ intencionDeVotosEn(corrientes,amarillo,10).
 intencionDeVotosEn(misiones,rojo,90).
 intencionDeVotosEn(misiones,azul,0).
 intencionDeVotosEn(misiones,amarillo,0).
+
 
 %% PUNTO 2
 
@@ -159,7 +161,7 @@ pertenecenAmismoPartido(Candidato1,Candidato2,Provincia):-
 elGranCandidato(UnCandidato):-
 	esCandidato(UnCandidato),
 	forall((candidato(UnCandidato,Partido),postulacion(Partido,Provincia)),leGana(UnCandidato,_,Provincia)),
-	%% esElMasJoven(UnCandidato).	
+	esElMasJoven(UnCandidato).	
 esCandidato(UnCandidato):- candidato(UnCandidato,_).
 
 /*
