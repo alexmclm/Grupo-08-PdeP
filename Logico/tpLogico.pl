@@ -125,16 +125,17 @@ sePresentaMismaProvincia(Provincia):-
 
 %% PUNTO 3
 leGana(Candidato1,Candidato2,Provincia):-
-	compitenMismaProvincia(Candidato1,Provincia),
-	compitenMismaProvincia(Candidato2,Provincia),
-	analizarPorcentajeVoto(Candidato1,Candidato2,Provincia).
-	%% pertenecenAmismoPartido(Candidato1,Candidato2,Provincia).
+	compitenMismaProvincia(Candidato1,Candidato2,Provincia),
+	analizarPorcentajeVoto(Candidato1,Candidato2,Provincia),
+	Candidato1 \= Candidato2.
 
-%% para el punto1: aunque el pto 3 dice si ambos candidatos pertenecen al mismo partido, la relacion se cumple si es en la misma provincia
-compitenMismaProvincia(Candidato,Provincia):-
-	candidato(Candidato,Partido),
-	postulacion(Partido,Provincia).
-%%	Partido1 \= Partido2. %% saco o no saco?
+compitenMismaProvincia(Candidato1,Candidato2,Provincia):-
+	candidato(Candidato1,Partido1),
+	candidato(Candidato2,Partido2),
+	postulacion(Partido1,Provincia),
+	postulacion(Partido2,Provincia),
+	Partido1 \= Partido2.
+
 	
 analizarPorcentajeVoto(Candidato1,Candidato2,Provincia):-
 	porcentajeVoto(Candidato1,Provincia,Porcentaje1),
@@ -155,22 +156,43 @@ pertenecenAmismoPartido(Candidato1,Candidato2,Provincia):-
 	postulacion(Partido2,Provincia),
 	Partido1 = Partido2.	
 %% frank es el unico que se postua en santafe, por eso gana ? ....
-
+leGana(Candidato1,Candidato2,Provincia):-
+	candidato(Candidato1,Partido),
+	postulacion(Partido,Provincia).	
 %% PUNTO 4 
 
-elGranCandidato(UnCandidato):-
-	esCandidato(UnCandidato),
-	forall((candidato(UnCandidato,Partido),postulacion(Partido,Provincia)),leGana(UnCandidato,_,Provincia)),
-	esElMasJoven(UnCandidato).	
-esCandidato(UnCandidato):- candidato(UnCandidato,_).
 
-/*
-esElMasJoven(UnCandidato):- 
-	candidato(UnCandidato,Partido),
-	edad(unCandidato,_).
-*/
+elGranCandidato(Candidato):-
+	esCandidato(Candidato),
+	forall((candidato(Candidato,Partido),postulacion(Partido,Provincia)),leGana(Candidato,_,Provincia)),
+	esElMasJovencito(Candidato).	
 
+esCandidato(Candidato):- candidato(Candidato,_).
+
+esElMasJovencito(Candidato):- 
+	candidato(Candidato,Partido),
+	forall(candidato(Candidato,Partido),compararEdad(Candidato,Candidato2)).
+
+compararEdad(Candidato,Candidato2):-
+	edad(Candidato,Edad),
+	edad(Candidato2,Edad2),
+	Edad >= Edad2.
+	
 %% PUNTO 5
+elPartidoGana(Partido,UnaProvincia):-
+	candidato(Candidato,Partido),
+	forall(candidato(Candidato,Partido),leGana(Candidato,_,UnaProvincia)).
+
+ajusteConsultora(UnPartido,UnaProvincia,ElVerdaderoPorcentaje):-
+	elPartidoGana(UnCandidato,UnaProvincia),
+	intencionDeVotosEn(UnaProvincia,UnPartido,Porcentaje),
+	ElVerdaderoPorcentaje is Porcentaje - 20.
+
+ajusteConsultora(UnPartido,UnaProvincia,ElVerdaderoPorcentaje):-
+	not(elPartidoGana(UnCandidato,UnaProvincia)),
+	intencionDeVotosEn(UnaProvincia,UnPartido,Porcentaje),
+	ElVerdaderoPorcentaje is Porcentaje + 5.
+
 
 %% PUNTO 6
 %%promete(Partido,Promesa).
@@ -193,4 +215,24 @@ promete(amarillo,inflacion(Inflacion)):-
 	Inflacion < 30.		
 
 %% PUNTO 7
+
+influenciasDePromesas(inflacion(InfalcionBaja,InfalcionAlta),VariacionDeVotos):-
+	VariacionDeVotos is (InfalcionBaja+InfalcionAlta)/2.
+influenciasDePromesas(generarPuestosTrabajo(Cantidad),3):-
+	Cantidad > 50000.
+influenciaSegunObra(Obra,2):-
+	member(construir(_,hospitales),Obra).
+influenciaSegunObra(Obra,Variacion):-
+	member(construir(Cantidad,jardines),Obra),
+	Variacion is (Cantidad * 0.1).
+influenciaSegunObra(Obra,Variacion):-
+	member(construir(Cantidad,escuelas),Obra),
+	Variacion is Cantidad *0.1.
+influenciaSegunObra(Obra,2):-
+	member(construir(200,comisarias),Obra).
+influenciasDePromesas(construir(Obra,_),VariacionDeVotos):-
+	%% 11pm: cabeza muerta , terminar
+	findall(Variacion,influenciaSegunObra(Obra,Variacion),Variaciones),
+	sumlist(Variaciones,VariacionDeVotos).	
+
 	
