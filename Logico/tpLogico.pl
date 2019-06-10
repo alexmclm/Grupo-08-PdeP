@@ -184,7 +184,7 @@ elPartidoGana(Partido,UnaProvincia):-
 	forall(candidato(Candidato,Partido),leGana(Candidato,_,UnaProvincia)).
 
 ajusteConsultora(UnPartido,UnaProvincia,ElVerdaderoPorcentaje):-
-	elPartidoGana(UnCandidato,UnaProvincia),
+	elPartidoGana(UnPartido,UnaProvincia),
 	intencionDeVotosEn(UnaProvincia,UnPartido,Porcentaje),
 	ElVerdaderoPorcentaje is Porcentaje - 20.
 
