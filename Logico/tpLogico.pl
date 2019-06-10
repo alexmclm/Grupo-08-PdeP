@@ -158,10 +158,9 @@ pertenecenAmismoPartido(Candidato1,Candidato2,Provincia):-
 %% frank es el unico que se postua en santafe, por eso gana ? ....
 leGana(Candidato1,Candidato2,Provincia):-
 	candidato(Candidato1,Partido),
-	postulacion(Partido,Provincia).	
+	postulacion(Partido,Provincia).
+
 %% PUNTO 4 
-
-
 elGranCandidato(Candidato):-
 	esCandidato(Candidato),
 	forall((candidato(Candidato,Partido),postulacion(Partido,Provincia)),leGana(Candidato,_,Provincia)),
@@ -181,7 +180,7 @@ compararEdad(Candidato,Candidato2):-
 %% PUNTO 5
 elPartidoGana(Partido,UnaProvincia):-
 	candidato(Candidato,Partido),
-	forall(candidato(Candidato,Partido),leGana(Candidato,_,UnaProvincia)).
+	leGana(Candidato,_,UnaProvincia).
 
 ajusteConsultora(UnPartido,UnaProvincia,ElVerdaderoPorcentaje):-
 	elPartidoGana(UnPartido,UnaProvincia),
@@ -204,15 +203,9 @@ promete(amarillo,construir(1,universidad)).
 promete(amarillo,construir(200,comisarias)).
 promete(rojo,generarPuestosTrabajo(800000)).
 promete(amarillo,generarPuestosTrabajo(100000)).
-promete(azul,inflacion(Inflacion)):-
-	Inflacion > 2,
-	Inflacion < 4.
-promete(amarillo,inflacion(Inflacion)):-
-	Inflacion > 1,
-	Inflacion < 15.
-promete(amarillo,inflacion(Inflacion)):-
-	Inflacion > 10,
-	Inflacion < 30.		
+promete(azul,inflacion(2,4)).
+promete(amarillo,inflacion(1,15)).
+promete(amarillo,inflacion(10,30)).
 
 %% PUNTO 7
 
@@ -233,6 +226,6 @@ influenciaSegunObra(Obra,2):-
 influenciasDePromesas(construir(Obra,_),VariacionDeVotos):-
 	%% 11pm: cabeza muerta , terminar
 	findall(Variacion,influenciaSegunObra(Obra,Variacion),Variaciones),
-	sumlist(Variaciones,VariacionDeVotos).	
+	sumlist(Variaciones,VariacionDeVotos).
 
 	
