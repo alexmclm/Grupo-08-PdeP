@@ -18,28 +18,28 @@ edad(linda,30).
 edad(catherine,59).
 edad(heather,50). %% por que reste 2019-1969 , creo que prolog no podia hacer operaciones asi no?
 
-%% postulacion(Partido,Provincia)
+%% partidoSePostulaEn(Partido,Provincia)
 
-postulacion(azul,buenosAires).
-postulacion(azul,chaco).
-postulacion(azul,tierraDelFuego).
-postulacion(azul,sanLuis).
-postulacion(azul,neuquen).
-postulacion(rojo,buenosAires).
-postulacion(rojo,santaFe).
-postulacion(rojo,cordoba).
-postulacion(rojo,chubut).
-postulacion(rojo,tierraDelFuego).
-postulacion(rojo,sanLuis).
-postulacion(amarillo,chaco).
-postulacion(amarillo,formosa).
-postulacion(amarillo,tucuman).
-postulacion(amarillo,salta).
-postulacion(amarillo,santaCruz).
-postulacion(amarillo,laPampa).
-postulacion(amarillo,corrientes).
-postulacion(amarillo,misiones).
-postulacion(amarillo,buenosAires).
+partidoSePostulaEn(azul,buenosAires).
+partidoSePostulaEn(azul,chaco).
+partidoSePostulaEn(azul,tierraDelFuego).
+partidoSePostulaEn(azul,sanLuis).
+partidoSePostulaEn(azul,neuquen).
+partidoSePostulaEn(rojo,buenosAires).
+partidoSePostulaEn(rojo,santaFe).
+partidoSePostulaEn(rojo,cordoba).
+partidoSePostulaEn(rojo,chubut).
+partidoSePostulaEn(rojo,tierraDelFuego).
+partidoSePostulaEn(rojo,sanLuis).
+partidoSePostulaEn(amarillo,chaco).
+partidoSePostulaEn(amarillo,formosa).
+partidoSePostulaEn(amarillo,tucuman).
+partidoSePostulaEn(amarillo,salta).
+partidoSePostulaEn(amarillo,santaCruz).
+partidoSePostulaEn(amarillo,laPampa).
+partidoSePostulaEn(amarillo,corrientes).
+partidoSePostulaEn(amarillo,misiones).
+partidoSePostulaEn(amarillo,buenosAires).
 
 %% habitantes(provincia, habitantes).
 
@@ -115,13 +115,10 @@ esPicante(Provincia):-
 	habitantes(Provincia,Cantidad),
 	Cantidad > 1000000.
 
-sePresentaMismaProvincia(Provincia):-
-	candidato(Nombre,Partido),
-	postulacion(Partido,Provincia),
-	candidato(Nombre2,Partido),
-	postulacion(Partido2,Provincia),
-	Nombre \= Nombre2,
-	Partido \= Partido2.	
+	sePresentaMismaProvincia(Provincia):-
+		partidoSePostulaEn(Partido,Provincia),
+		partidoSePostulaEn(Partido2,Provincia),
+		Partido \= Partido2. %% Para no repetir logica se compara unicamente contra los partidos como se pidio.	
 
 %% PUNTO 3
 leGana(Candidato1,Candidato2,Provincia):-
@@ -132,11 +129,11 @@ leGana(Candidato1,Candidato2,Provincia):-
 compitenMismaProvincia(Candidato1,Candidato2,Provincia):-
 	candidato(Candidato1,Partido1),
 	candidato(Candidato2,Partido2),
-	postulacion(Partido1,Provincia),
-	postulacion(Partido2,Provincia),
+	partidoSePostulaEn(Partido1,Provincia),
+	partidoSePostulaEn(Partido2,Provincia),
 	Partido1 \= Partido2.
 
-	
+
 analizarPorcentajeVoto(Candidato1,Candidato2,Provincia):-
 	porcentajeVoto(Candidato1,Provincia,Porcentaje1),
 	porcentajeVoto(Candidato2,Provincia,Porcentaje2),
@@ -152,23 +149,23 @@ leGana(Candidato1,Candidato2,Provincia):-
 pertenecenAmismoPartido(Candidato1,Candidato2,Provincia):-
 	candidato(Candidato1,Partido1),
 	candidato(Candidato2,Partido2),
-	postulacion(Partido1,Provincia),
-	postulacion(Partido2,Provincia),
-	Partido1 = Partido2.	
+	partidoSePostulaEn(Partido1,Provincia),
+	partidoSePostulaEn(Partido2,Provincia),
+	Partido1 = Partido2.
 %% frank es el unico que se postua en santafe, por eso gana ? ....
 leGana(Candidato1,Candidato2,Provincia):-
 	candidato(Candidato1,Partido),
-	postulacion(Partido,Provincia).
+	partidoSePostulaEn(Partido,Provincia).
 
-%% PUNTO 4 
+%% PUNTO 4
 elGranCandidato(Candidato):-
 	esCandidato(Candidato),
-	forall((candidato(Candidato,Partido),postulacion(Partido,Provincia)),leGana(Candidato,_,Provincia)),
-	esElMasJovencito(Candidato).	
+	forall((candidato(Candidato,Partido),partidoSePostulaEn(Partido,Provincia)),leGana(Candidato,_,Provincia)),
+	esElMasJovencito(Candidato).
 
 esCandidato(Candidato):- candidato(Candidato,_).
 
-esElMasJovencito(Candidato):- 
+esElMasJovencito(Candidato):-
 	candidato(Candidato,Partido),
 	forall(candidato(Candidato,Partido),compararEdad(Candidato,Candidato2)).
 
@@ -176,7 +173,7 @@ compararEdad(Candidato,Candidato2):-
 	edad(Candidato,Edad),
 	edad(Candidato2,Edad2),
 	Edad >= Edad2.
-	
+
 %% PUNTO 5
 elPartidoGana(Partido,UnaProvincia):-
 	candidato(Candidato,Partido),
@@ -227,5 +224,3 @@ influenciasDePromesas(construir(Obra,_),VariacionDeVotos):-
 	%% 11pm: cabeza muerta , terminar
 	findall(Variacion,influenciaSegunObra(Obra,Variacion),Variaciones),
 	sumlist(Variaciones,VariacionDeVotos).
-
-	
