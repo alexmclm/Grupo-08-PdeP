@@ -173,7 +173,7 @@ esElMasJovencito(Candidato):-
 
 compararEdad(Candidato,Candidato2):-
 	edad(Candidato,Edad),
-	edad(Candidato2,Edad2), ´´
+	edad(Candidato2,Edad2),
 	Edad >= Edad2.
 
 %% PUNTO 5
@@ -193,7 +193,7 @@ ajusteDe20(UnPartido,UnaProvincia,ElVerdaderoPorcentaje):-
 	ElVerdaderoPorcentaje is Porcentaje - 20.
 
 ajusteDe5(UnPartido,UnaProvincia,ElVerdaderoPorcentaje):-
-	not(elPartidoGana(UnCandidato,UnaProvincia)),
+	not(elPartidoGana(UnPartido,UnaProvincia)),
 	intencionDeVotosEn(UnaProvincia,UnPartido,Porcentaje),
 	ElVerdaderoPorcentaje is Porcentaje + 5.
 
@@ -229,6 +229,5 @@ influenciaSegunObra(Obra,Variacion):-
 influenciaSegunObra(Obra,2):-
 	member(construir(200,comisarias),Obra).
 influenciasDePromesas(construir(Obra,_),VariacionDeVotos):-
-	%% 11pm: cabeza muerta , terminar
 	findall(Variacion,influenciaSegunObra(Obra,Variacion),Variaciones),
 	sumlist(Variaciones,VariacionDeVotos).
