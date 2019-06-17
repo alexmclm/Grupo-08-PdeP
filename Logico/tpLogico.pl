@@ -115,16 +115,24 @@ esPicante(Provincia):-
 	habitantes(Provincia,Cantidad),
 	Cantidad > 1000000.
 
-	sePresentaMismaProvincia(Provincia):-
-		partidoSePostulaEn(Partido,Provincia),
-		partidoSePostulaEn(Partido2,Provincia),
-		Partido \= Partido2. %% Para no repetir logica se compara unicamente contra los partidos como se pidio.	
+sePresentaMismaProvincia(Provincia):-
+	partidoSePostulaEn(Partido,Provincia),
+	partidoSePostulaEn(Partido2,Provincia),
+	Partido \= Partido2. %% Para no repetir logica se compara unicamente contra los partidos como se pidio.
 
 %% PUNTO 3
+
 leGana(Candidato1,Candidato2,Provincia):-
 	compitenMismaProvincia(Candidato1,Candidato2,Provincia),
 	analizarPorcentajeVoto(Candidato1,Candidato2,Provincia),
 	Candidato1 \= Candidato2.
+
+leGana(Candidato1,_,Provincia):-
+	candidato(Candidato1,Partido),
+	partidoSePostulaEn(Partido,Provincia).
+
+leGana(Candidato1,Candidato2,Provincia):-
+	pertenecenAmismoPartido(Candidato1,Candidato2,Provincia).
 
 compitenMismaProvincia(Candidato1,Candidato2,Provincia):-
 	candidato(Candidato1,Partido1),
@@ -133,18 +141,15 @@ compitenMismaProvincia(Candidato1,Candidato2,Provincia):-
 	partidoSePostulaEn(Partido2,Provincia),
 	Partido1 \= Partido2.
 
-
 analizarPorcentajeVoto(Candidato1,Candidato2,Provincia):-
 	porcentajeVoto(Candidato1,Provincia,Porcentaje1),
 	porcentajeVoto(Candidato2,Provincia,Porcentaje2),
-		Porcentaje1>Porcentaje2.
+	Porcentaje1>Porcentaje2,
+	Porcentaje1\=Porcentaje2.
 
 porcentajeVoto(Candidato,Provincia,Porcentaje):-
 	candidato(Candidato,Partido),
 	intencionDeVotosEn(Provincia,Partido,Porcentaje).
-
-leGana(Candidato1,Candidato2,Provincia):-
-	pertenecenAmismoPartido(Candidato1,Candidato2,Provincia).
 
 pertenecenAmismoPartido(Candidato1,Candidato2,Provincia):-
 	candidato(Candidato1,Partido1),
@@ -152,12 +157,9 @@ pertenecenAmismoPartido(Candidato1,Candidato2,Provincia):-
 	partidoSePostulaEn(Partido1,Provincia),
 	partidoSePostulaEn(Partido2,Provincia),
 	Partido1 = Partido2.
-%% frank es el unico que se postua en santafe, por eso gana ? ....
-leGana(Candidato1,Candidato2,Provincia):-
-	candidato(Candidato1,Partido),
-	partidoSePostulaEn(Partido,Provincia).
 
 %% PUNTO 4
+
 elGranCandidato(Candidato):-
 	esCandidato(Candidato),
 	forall((candidato(Candidato,Partido),partidoSePostulaEn(Partido,Provincia)),leGana(Candidato,_,Provincia)),
@@ -167,11 +169,11 @@ esCandidato(Candidato):- candidato(Candidato,_).
 
 esElMasJovencito(Candidato):-
 	candidato(Candidato,Partido),
-	forall(candidato(Candidato,Partido),compararEdad(Candidato,Candidato2)).
+	forall(candidato(Candidato,Partido),compararEdad(Candidato,_)).
 
 compararEdad(Candidato,Candidato2):-
 	edad(Candidato,Edad),
-	edad(Candidato2,Edad2),
+	edad(Candidato2,Edad2), ´´
 	Edad >= Edad2.
 
 %% PUNTO 5
