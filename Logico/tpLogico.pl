@@ -182,11 +182,17 @@ elPartidoGana(Partido,UnaProvincia):-
 	leGana(Candidato,_,UnaProvincia).
 
 ajusteConsultora(UnPartido,UnaProvincia,ElVerdaderoPorcentaje):-
+	ajusteDe20(UnPartido,UnaProvincia,ElVerdaderoPorcentaje).
+
+ajusteConsultora(UnPartido,UnaProvincia,ElVerdaderoPorcentaje):-
+ ajusteDe5(UnPartido,UnaProvincia,ElVerdaderoPorcentaje).
+
+ajusteDe20(UnPartido,UnaProvincia,ElVerdaderoPorcentaje):-
 	elPartidoGana(UnPartido,UnaProvincia),
 	intencionDeVotosEn(UnaProvincia,UnPartido,Porcentaje),
 	ElVerdaderoPorcentaje is Porcentaje - 20.
 
-ajusteConsultora(UnPartido,UnaProvincia,ElVerdaderoPorcentaje):-
+ajusteDe5(UnPartido,UnaProvincia,ElVerdaderoPorcentaje):-
 	not(elPartidoGana(UnCandidato,UnaProvincia)),
 	intencionDeVotosEn(UnaProvincia,UnPartido,Porcentaje),
 	ElVerdaderoPorcentaje is Porcentaje + 5.
