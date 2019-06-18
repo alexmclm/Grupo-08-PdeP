@@ -231,3 +231,10 @@ influenciaSegunObra(Obra,2):-
 influenciasDePromesas(construir(Obra,_),VariacionDeVotos):-
 	findall(Variacion,influenciaSegunObra(Obra,Variacion),Variaciones),
 	sumlist(Variaciones,VariacionDeVotos).
+
+
+%% PUNTO 8
+
+promedioDeCrecimiento(Partido,Crecimiento):-
+	promete(Partido,_),
+	sumlist(influenciasDePromesas(_,VariacionDeVotos),Crecimiento).
