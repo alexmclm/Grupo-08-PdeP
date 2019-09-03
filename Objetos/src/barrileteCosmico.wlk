@@ -6,11 +6,14 @@ object barrileteCosmico {
 		destinos.add(unosDestinos)
 	} 
 	method destinosImportantes(){
-		return destinos.filter({unDestino => unDestino.esImportante()})
+		return destinos.filter({unDestino => unDestino.esDestacado()})
 	}
 	method darDescuento(unDescuento){
 		destinos.forEach({unDestino => unDestino.precioConDescuento(unDescuento)})
 	}
+	method agregarAlEquipaje(unElemento){
+		destinos.forEach({unDestino => unDestino.agregarAlEquipaje(unElemento)})
+	}	
 	/*
 	method esExterna(){
 		return destinos.any({unDestino => unDestino.contains()})
