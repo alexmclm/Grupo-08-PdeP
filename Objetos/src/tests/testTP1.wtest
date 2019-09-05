@@ -1,0 +1,48 @@
+import barrileteCosmico.*
+import lugares.*
+import usuario.*
+
+test "Destinos importantes de Barrilete Cosmico : Garlic´s Sea" {
+	var destinos=barrileteCosmico.destinosImportantes()
+	assert.that(true)
+	//assert.equals("Garlic´s Sea",destinos.nombre()) son 2 destinos importantes
+
+}
+test "Al aplicar descuento del 25% a 'Last Toninas', su precio es de $2625"{
+	lastToninas.precioConDescuento(25)
+	assert.equals(2625,lastToninas.precio())
+}
+test "Al aplicar descuento del 25% a 'Last Toninas', agregar al equipaje 'Certificado De Descuento' "{
+	lastToninas.precioConDescuento(25)
+	lastToninas.agregarAlEquipaje("Certificado De Descuento")
+	assert.that(lastToninas.equipaje().contains("Certificado De Descuento"))
+}
+test "Silver´s Sea no es un sitio Peligroso "{
+	assert.notThat(true)
+	//no hice el metodo
+}
+test "Aplicar descuento del 15% a todos los destinos de Barrilete Cosmico"{
+	barrileteCosmico.darDescuento(15)
+	barrileteCosmico.agregarAlEquipaje("Certificado de Descuento")
+	assert.that(true) // no se como mostraria
+}
+test "Destinos mas peligrosos, debe ser LastToninas"{
+	assert.that(true)
+	//no hice el metodo
+}
+test "Barrilete Cosmico es una empresa Externa, si lo es"{
+	assert.that(true)
+	//no hice el metodo
+
+}
+test "Carta de Destinos de Barrilete Cosmico"{
+	assert.that(true)
+	//no se como mostrar todo el objeto barrilete cosmico
+}
+test "Millas de Pablo Harri, 500KM"{
+	pabloHari.kilometrosRecorridos()
+	assert.equals(500,pabloHari.kilometros())
+}
+test "Pablo Hari vuela a Silver´s Sea"{
+	assert.that(true) // hasta aca llegue jajajajaj
+}

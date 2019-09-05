@@ -37,5 +37,5 @@ object pabloHari {
 	method perseguirAAlguien(unUsuario){
 		usuariosQueSigue.add(unUsuario)
 	}
-	
+	method kilometros() = kilometrosRecorridos
 }
