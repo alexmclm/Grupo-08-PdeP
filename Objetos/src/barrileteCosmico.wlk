@@ -14,13 +14,16 @@ object barrileteCosmico {
 	method agregarAlEquipaje(unElemento){
 		destinos.forEach({unDestino => unDestino.agregarAlEquipaje(unElemento)})
 	}	
-	/*
-	method esExterna(){
-		return destinos.any({unDestino => unDestino.contains()})
+	
+	method esExtrema(){
+		return destinos.any({unDestino => unDestino.esPeligroso()})
 	}
-	*/
+	
 	method cartasDeDestinos(){
 		return destinos
 	}
 	
+	method verDestinos(){
+		return destinos
+	}
 }

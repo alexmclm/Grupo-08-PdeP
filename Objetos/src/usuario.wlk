@@ -8,7 +8,7 @@ object pabloHari {
 	method agregarDestino(unDestino){
 		lugares.add(unDestino)
 	}
-	/*
+	
 	method volarA(unDestino){
 		if(self.alcanzaDinero(unDestino)){
 			self.descontarDinero(unDestino)
@@ -18,10 +18,8 @@ object pabloHari {
 		}
 	}
 	 
-	*/
-	method volarA(unDestino){
-		
-	}
+	
+	
 	method alcanzaDinero(unDestino){
 		return (unDestino.precio() <= billeteraVirtualEnBarrileteCosmico)
 	}
@@ -38,4 +36,6 @@ object pabloHari {
 		usuariosQueSigue.add(unUsuario)
 	}
 	method kilometros() = kilometrosRecorridos
+	
+	method plataQueTiene() = billeteraVirtualEnBarrileteCosmico
 }

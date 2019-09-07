@@ -18,8 +18,9 @@ test "Al aplicar descuento del 25% a 'Last Toninas', agregar al equipaje 'Certif
 	assert.that(lastToninas.equipaje().contains("Certificado De Descuento"))
 }
 test "Silver´s Sea no es un sitio Peligroso "{
+	silversSea.esPeligroso()
 	assert.notThat(true)
-	//no hice el metodo
+
 }
 test "Aplicar descuento del 15% a todos los destinos de Barrilete Cosmico"{
 	barrileteCosmico.darDescuento(15)
@@ -27,22 +28,27 @@ test "Aplicar descuento del 15% a todos los destinos de Barrilete Cosmico"{
 	assert.that(true) // no se como mostraria
 }
 test "Destinos mas peligrosos, debe ser LastToninas"{
+	
 	assert.that(true)
 	//no hice el metodo
 }
-test "Barrilete Cosmico es una empresa Externa, si lo es"{
+test "Barrilete Cosmico es una empresa Extrema, si lo es"{
+	barrileteCosmico.esExtrema()
 	assert.that(true)
-	//no hice el metodo
-
 }
 test "Carta de Destinos de Barrilete Cosmico"{
-	assert.that(true)
-	//no se como mostrar todo el objeto barrilete cosmico
+	barrileteCosmico.agregarDestinos(garlicSea)
+	barrileteCosmico.agregarDestinos(silversSea)
+	barrileteCosmico.agregarDestinos(lastToninas)
+	barrileteCosmico.agregarDestinos(goodAiris)
+	assert.equals(#{garlicSea,silversSea,lastToninas,goodAiris},barrileteCosmico.verDestinos())
+	
 }
 test "Millas de Pablo Harri, 500KM"{
 	pabloHari.kilometrosRecorridos()
 	assert.equals(500,pabloHari.kilometros())
 }
 test "Pablo Hari vuela a Silver´s Sea"{
-	assert.that(true) // hasta aca llegue jajajajaj
+	pabloHari.volarA(silversSea)
+	assert.equals(150,pabloHari.plataQueTiene()) 
 }
