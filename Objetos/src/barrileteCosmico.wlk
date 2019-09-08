@@ -1,7 +1,7 @@
 import lugares.*
 import usuario.*
 object barrileteCosmico {
-	var destinos = #{}
+	var destinos = #{garlicSea,silversSea,lastToninas,goodAiris}
 	method agregarDestinos(unosDestinos){
 		destinos.add(unosDestinos)
 	} 
@@ -26,4 +26,10 @@ object barrileteCosmico {
 	method verDestinos(){
 		return destinos
 	}
+	
+	method lugaresPeligrosos(){
+		 return destinos.filter({destino => destino.esPeligroso()})
+	}
+
+
 }

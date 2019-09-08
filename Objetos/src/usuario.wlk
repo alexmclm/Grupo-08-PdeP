@@ -19,7 +19,6 @@ object pabloHari {
 	}
 	 
 	
-	
 	method alcanzaDinero(unDestino){
 		return (unDestino.precio() <= billeteraVirtualEnBarrileteCosmico)
 	}
