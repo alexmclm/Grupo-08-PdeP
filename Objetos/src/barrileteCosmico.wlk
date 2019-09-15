@@ -11,16 +11,13 @@ object barrileteCosmico {
 	method darDescuento(unDescuento){
 		destinos.forEach({unDestino => unDestino.precioConDescuento(unDescuento)})
 	}
-	method agregarAlEquipaje(unElemento){
-		destinos.forEach({unDestino => unDestino.agregarAlEquipaje(unElemento)})
-	}	
 	
 	method esExtrema(){
 		return destinos.any({unDestino => unDestino.esPeligroso()})
 	}
 	
 	method cartasDeDestinos(){
-		return destinos
+		return destinos.map({unDestino=>unDestino.nombre()})
 	}
 	
 	method verDestinos(){

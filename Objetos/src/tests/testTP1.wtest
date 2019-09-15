@@ -4,7 +4,7 @@ import usuario.*
 
 test "Destinos importantes de Barrilete Cosmico : Garlic´s Sea" {
 	var destinos=barrileteCosmico.destinosImportantes()
-	assert.that(true)
+	assert.equals(#{garlicSea,lastToninas},destinos)
 	//assert.equals("Garlic´s Sea",destinos.nombre()) son 2 destinos importantes
 
 }
@@ -14,7 +14,6 @@ test "Al aplicar descuento del 25% a 'Last Toninas', su precio es de $2625"{
 }
 test "Al aplicar descuento del 25% a 'Last Toninas', agregar al equipaje 'Certificado De Descuento' "{
 	lastToninas.precioConDescuento(25)
-	lastToninas.agregarAlEquipaje("Certificado De Descuento")
 	assert.that(lastToninas.equipaje().contains("Certificado De Descuento"))
 }
 test "Silver´s Sea no es un sitio Peligroso "{
@@ -22,11 +21,21 @@ test "Silver´s Sea no es un sitio Peligroso "{
 	assert.notThat(silversSea.esPeligroso())
 
 }
-test "Aplicar descuento del 15% a todos los destinos de Barrilete Cosmico"{
-
+test "Aplicar descuento del 15% a todos los destinos de Barrilete Cosmico-'Garlic Sea debe quedar con $2125'"{
 	barrileteCosmico.darDescuento(15)
-	barrileteCosmico.agregarAlEquipaje("Certificado de Descuento")
-	assert.that(true) // no se como mostraria
+	assert.equals(2125,garlicSea.precio()) 
+}
+test "Aplicar descuento del 15% a todos los destinos de Barrilete Cosmico-'Silver Sea' debe quedar con $1147,5'" {
+	barrileteCosmico.darDescuento(15)
+	assert.equals(1147.5,silversSea.precio()) 
+}
+test "Aplicar descuento del 15% a todos los destinos de Barrilete Cosmico-'Last Toninas' debe quedar con $2975'" {
+	barrileteCosmico.darDescuento(15)
+	assert.equals(2975,lastToninas.precio()) 
+}
+test "Aplicar descuento del 15% a todos los destinos de Barrilete Cosmico-'Good Airis debe quedar con $1275'" {
+	barrileteCosmico.darDescuento(15)
+	assert.equals(1275,goodAiris.precio()) 
 }
 test "Destinos mas peligrosos, debe ser LastToninas"{
 
@@ -39,12 +48,11 @@ test "Barrilete Cosmico es una empresa Extrema, si lo es"{
 }
 test "Carta de Destinos de Barrilete Cosmico"{
 
-	assert.equals(#{garlicSea,silversSea,lastToninas,goodAiris},barrileteCosmico.verDestinos())
+	assert.equals(#{"Garlic Sea","Silver´s Sea","Last Toninas","Good Airis"},barrileteCosmico.cartasDeDestinos().asSet())
 	
 }
 test "Millas de Pablo Harri, 500KM"{
-	pabloHari.kilometrosRecorridos()
-	assert.equals(500,pabloHari.kilometros())
+	assert.equals(500,pabloHari.kilometrosRecorridos())
 }
 test "Pablo Hari puede volar a Silver´s Sea "{
 	assert.equals(true,pabloHari.alcanzaDinero(silversSea))

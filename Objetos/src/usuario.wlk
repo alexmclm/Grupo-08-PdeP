@@ -4,7 +4,6 @@ object pabloHari {
 	var lugares =#{lastToninas,goodAiris} // los conoce de prepo
 	var usuariosQueSigue=[]
 	var billeteraVirtualEnBarrileteCosmico = 1500
-	var kilometrosRecorridos =0
 	method agregarDestino(unDestino){
 		lugares.add(unDestino)
 	}
@@ -13,8 +12,6 @@ object pabloHari {
 		if(self.alcanzaDinero(unDestino)){
 			self.descontarDinero(unDestino)
 			self.agregarDestino(unDestino)
-		}else{
-			"soy un tarado, aplaste un pescado "
 		}
 	}
 	 
@@ -26,7 +23,7 @@ object pabloHari {
 		billeteraVirtualEnBarrileteCosmico -= unDestino.precio()
 	}
 	method kilometrosRecorridos(){
-		kilometrosRecorridos = (self.conjuntoPrecio()*10)/100
+		return (self.conjuntoPrecio()*10)/100
 	}
 	method conjuntoPrecio(){
 		return lugares.sum({unLugar => unLugar.precio()})
@@ -34,7 +31,8 @@ object pabloHari {
 	method perseguirAAlguien(unUsuario){
 		usuariosQueSigue.add(unUsuario)
 	}
-	method kilometros() = kilometrosRecorridos
-	
+	method devolverFollow(){
+		self.perseguirAAlguien(self)
+	}
 	method plataQueTiene() = billeteraVirtualEnBarrileteCosmico
 }
