@@ -1,3 +1,4 @@
+/*
 object garlicSea {
 
 	var nombre = "Garlic Sea"
@@ -121,3 +122,5 @@ object goodAiris{
 	method nombre()=nombre
 	method equipaje() = equipaje	
 }
+*
+ */

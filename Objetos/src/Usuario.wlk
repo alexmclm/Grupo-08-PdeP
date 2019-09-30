@@ -1,0 +1,50 @@
+import Localidades.*
+import barrileteCosmico.*
+class Usuario {
+	var nombre
+	var viajes // "reemplazaria" a los destinos - lugares en el TP1-
+	var usuariosQueSigue
+	var billeteraVirtualEnBarrileteCosmico
+	var localidadOrigen
+	constructor (unNombre,unosViajes,unosUsersQueSigue,unaBilleteraVirtual,unaLocalidadDeOrigen){
+		nombre = unNombre
+		viajes= unosViajes
+		usuariosQueSigue= unosUsersQueSigue
+		billeteraVirtualEnBarrileteCosmico = unaBilleteraVirtual
+		localidadOrigen=unaLocalidadDeOrigen
+	}
+	method agregarDestino(unDestino){
+		viajes.add(unDestino)
+	}
+	
+	method volarA(unDestino){
+		if(self.alcanzaDinero(unDestino)){
+			self.descontarDinero(unDestino)
+			self.agregarDestino(unDestino)
+		}
+	}
+	 
+	
+	method alcanzaDinero(unDestino){
+		return (unDestino.precio() <= billeteraVirtualEnBarrileteCosmico)
+	}
+	method descontarDinero(unDestino){
+		billeteraVirtualEnBarrileteCosmico -= unDestino.precio()
+	}
+	/*
+	 * es dificil la interpretacion, a mi entender dicen que los kilometros de cada usuario sera entre 
+	 * los origenes de donde arranca (localidadOrigen) + los destinos de los viajes que tiene
+	 * y como pueden tener muchos viajes hechos, entonces es mejor que haga una funcion que sume todos los viajes
+	 * de la lista 
+	 */
+	method kilometrosRecorridos(){
+		viajes = localidadOrigen + viajes.sum({unViaje => unViaje.ubacionEnKm()})
+	}
+	method perseguirAAlguien(unUsuario){
+		usuariosQueSigue.add(unUsuario)
+	}
+	method devolverFollow(){
+		self.perseguirAAlguien(self)
+	}
+	method plataQueTiene() = billeteraVirtualEnBarrileteCosmico
+}

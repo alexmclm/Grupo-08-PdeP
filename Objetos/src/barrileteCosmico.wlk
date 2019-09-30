@@ -1,5 +1,5 @@
-import lugares.*
-import usuario.*
+import Localidades.*
+import Usuario.*
 object barrileteCosmico {
 	var destinos = #{garlicSea,silversSea,lastToninas,goodAiris}
 	method agregarDestinos(unosDestinos){

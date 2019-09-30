@@ -1,6 +1,22 @@
 import barrileteCosmico.*
-import lugares.*
-import usuario.*
+import Localidades.*
+import Usuario.*
+
+describe "instancias de destinos"{
+	const garlicSea
+	const silversSea
+	const lastToninas
+	const goodAiris
+	const pabloHari
+	//decidi instanciar tanto localidades como usuario con Km en 0 , para ver simplemente jajaj
+		fixture{
+			garlicSea = new Localidades("garlic Sea", #{"Caña de pescar", "Piloto"},2500,0)
+			silversSea = new Localidades("Silver´s Sea",#{"Protector Solar", "Equipo de Buceo"},1350,0)
+			lastToninas = new Localidades("Last Toninas",#{"Vacuna Gripal", "Vacuna B", "Necronomicon"},3500,0)
+			goodAiris = new Localidades("Good Airis",#{"Cerveza", "Protector Solar"},1500,0)
+			
+			pabloHari = new Usuario("pabloHari",#{lastToninas,goodAiris},[],1500,0)
+		}
 
 test "Destinos importantes de Barrilete Cosmico : Garlic´s Sea" {
 	var destinos=barrileteCosmico.destinosImportantes()
@@ -60,4 +76,5 @@ test "Pablo Hari puede volar a Silver´s Sea "{
 test "Pablo Hari vuela a Silver´s Sea"{
 	pabloHari.volarA(silversSea)
 	assert.equals(150,pabloHari.plataQueTiene()) 
+	}
 }
