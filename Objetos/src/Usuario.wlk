@@ -1,3 +1,4 @@
+import MediosDeTransporte.*
 import Localidades.*
 import barrileteCosmico.*
 class Usuario {
@@ -21,6 +22,11 @@ class Usuario {
 		if(self.alcanzaDinero(unDestino)){
 			self.descontarDinero(unDestino)
 			self.agregarDestino(unDestino)
+	//ya que el nuevo origen sera los nuevos destinos que tenga, entonces lo modifico
+			localidadOrigen = unDestino.origenFinal()
+		}
+		else{
+		throw new ErrorMoneyRejectedException(message = "me duelen los bolsillos");
 		}
 	}
 	 
@@ -38,7 +44,7 @@ class Usuario {
 	 * de la lista 
 	 */
 	method kilometrosRecorridos(){
-		viajes = localidadOrigen + viajes.sum({unViaje => unViaje.ubacionEnKm()})
+		viajes = viajes.sum({unViaje => unViaje.ubacionEnKm()})
 	}
 	method perseguirAAlguien(unUsuario){
 		usuariosQueSigue.add(unUsuario)
@@ -48,3 +54,4 @@ class Usuario {
 	}
 	method plataQueTiene() = billeteraVirtualEnBarrileteCosmico
 }
+class ErrorMoneyRejectedException inherits Exception{}

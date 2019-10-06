@@ -1,32 +1,51 @@
 import Localidades.*
 import Usuario.*
-object barrileteCosmico {
-	var destinos = #{garlicSea,silversSea,lastToninas,goodAiris}
-	method agregarDestinos(unosDestinos){
-		destinos.add(unosDestinos)
+import Viajes.*
+class barrileteCosmico {
+	
+	var localidades = #{}
+	var transporte = #{}
+	var usuario
+	
+	constructor (unasLocalidades, unosTransportes,unUsuario){
+		localidades=unasLocalidades
+		transporte = unosTransportes
+		usuario = unUsuario
+	}
+	method agregarDestinos(unasLocalidades){
+		localidades.add(unasLocalidades)
 	} 
 	method destinosImportantes(){
-		return destinos.filter({unDestino => unDestino.esDestacado()})
+		return localidades.filter({unaLocalidad => unaLocalidad.esDestacado()})
 	}
 	method darDescuento(unDescuento){
-		destinos.forEach({unDestino => unDestino.precioConDescuento(unDescuento)})
+		localidades.forEach({unDestino => unDestino.precioConDescuento(unDescuento)})
 	}
 	
 	method esExtrema(){
-		return destinos.any({unDestino => unDestino.esPeligroso()})
+		return localidades.any({unaLocalidad => unaLocalidad.esPeligroso()})
 	}
 	
 	method cartasDeDestinos(){
-		return destinos.map({unDestino=>unDestino.nombre()})
+		return localidades.map({unaLocalidad=>unaLocalidad.nombre()})
 	}
 	
 	method verDestinos(){
-		return destinos
+		return localidades
 	}
 	
 	method lugaresPeligrosos(){
-		 return destinos.filter({destino => destino.esPeligroso()})
+		 return localidades.filter({unaLocalidad => unaLocalidad.esPeligroso()})
 	}
+	// parte 2 del tp
+	 method armarElViaje(unUsuario,unDestinoFinal){
+	 	//por que dice que debo armar el viaje para UN USUARIO
+	 	//los viajes ahora son por separado donde se necesita el origen, que sera donde el USUARIO ESTARA PARADO
+	 	//el destino final, que lo paso por parametro 
+	 	//y el transporte que sera cualquiera
+	 	var unViaje = new Viaje(unUsuario.destinoOrigen(),unDestinoFinal,transporte.anyOne())
+	 	unUsuario.volarA(unDestinoFinal)
+	 }
 
 
 }

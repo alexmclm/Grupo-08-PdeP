@@ -1,21 +1,40 @@
 import barrileteCosmico.*
 import Localidades.*
 import Usuario.*
+import MediosDeTransporte.*
+import Viajes.*
 
-describe "instancias de destinos"{
+describe "instancias de destinos, usuarios , medios de tranporte , viajes y barrilete cosmico"{
 	const garlicSea
 	const silversSea
 	const lastToninas
 	const goodAiris
+	//Usuarios
+	const albertoK
+	const elOsoRulo
 	const pabloHari
+	// mediosDeTransporte
+	const transporteGalacticus
+	const flechaBus
+	
+	
+	const barrileteCosmico 
 	//decidi instanciar tanto localidades como usuario con Km en 0 , para ver simplemente jajaj
 		fixture{
-			garlicSea = new Localidades("garlic Sea", #{"Caña de pescar", "Piloto"},2500,0)
-			silversSea = new Localidades("Silver´s Sea",#{"Protector Solar", "Equipo de Buceo"},1350,0)
-			lastToninas = new Localidades("Last Toninas",#{"Vacuna Gripal", "Vacuna B", "Necronomicon"},3500,0)
-			goodAiris = new Localidades("Good Airis",#{"Cerveza", "Protector Solar"},1500,0)
+			garlicSea = new Localidades("Garlic Sea", #{"Caña de pescar", "Piloto"},2500,100)
+			silversSea = new Localidades("Silver´s Sea",#{"Protector Solar", "Equipo de Buceo"},1350,250)
+			lastToninas = new Localidades("Last Toninas",#{"Vacuna Gripal", "Vacuna B", "Necronomicon"},3500,300)
+			goodAiris = new Localidades("Good Airis",#{"Cerveza", "Protector Solar"},1500,400)
 			
-			pabloHari = new Usuario("pabloHari",#{lastToninas,goodAiris},[],1500,0)
+			pabloHari = new Usuario("pabloHari",#{lastToninas,goodAiris},[],1500,garlicSea)
+			albertoK = new Usuario("el alberto del pueblo", #{},[],2000,silversSea)
+			elOsoRulo = new Usuario("No rulo no hagas eso_ok", #{},[],2500,lastToninas)
+			
+			//lo hice clase para hacer este chiche jajajaaj
+			barrileteCosmico = new barrileteCosmico(#{garlicSea,silversSea,lastToninas,goodAiris},#{},#{})
+			//transportes
+			transporteGalacticus = new MediosDeTransporte(100,10)
+			flechaBus = new MediosDeTransporte(150,15)
 		}
 
 test "Destinos importantes de Barrilete Cosmico : Garlic´s Sea" {
@@ -67,6 +86,7 @@ test "Carta de Destinos de Barrilete Cosmico"{
 	assert.equals(#{"Garlic Sea","Silver´s Sea","Last Toninas","Good Airis"},barrileteCosmico.cartasDeDestinos().asSet())
 	
 }
+/*
 test "Millas de Pablo Harri, 500KM"{
 	assert.equals(500,pabloHari.kilometrosRecorridos())
 }
@@ -77,4 +97,30 @@ test "Pablo Hari vuela a Silver´s Sea"{
 	pabloHari.volarA(silversSea)
 	assert.equals(150,pabloHari.plataQueTiene()) 
 	}
+ 
+*/
+ /* PARTE 2 : NO SE QUE TEST PROBAR JAJAJAJAAJ */
+ test " la distancia entre  garlic sea y last toninas son de 200 km" {
+ 	
+ 	assert.equals(200,garlicSea.distanciasCon(lastToninas))
+ }
+test " distancia entre garlic sea y silversSea son de 150km" {
+	assert.equals(150,garlicSea.distanciasCon(silversSea))
+}
+test "distancia entre garlicSea y good airis son de 300km "{
+	assert.equals(300,garlicSea.distanciasCon(goodAiris))
+}
+test "distancia entre Sirvers Sea y Last Toninas son de 50km"{
+	assert.equals(50,silversSea.distanciasCon(lastToninas))
+}
+test "distancia entre Silvers Sea y Good Airis son de 150km"{
+	assert.equals(150,silversSea.distanciasCon(goodAiris))
+}
+test "distancia entre last Toninas con Good Airis son de 100km"{
+	assert.equals(100,lastToninas.distanciasCon(goodAiris))
+}
+
+test "alberto va de gira con tranporte galacticus , su gira es solo por lastToninas, precio: xxxx "{
+	assert.that(true)
+}
 }

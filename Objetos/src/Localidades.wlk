@@ -1,18 +1,15 @@
 class Localidades {
-	var nombre
-	var equipaje = []
-	var precio
-	var ubicacionEnKm
+	var property nombre
+	var property equipaje = []
+	var property precio
+	var property ubicacionEnKm
 	constructor (unNombre,unosEquipajes,unPrecio,unaUbicacionEnKm){
 		nombre = unNombre
 		equipaje = unosEquipajes
 		precio = unPrecio
 		ubicacionEnKm = unaUbicacionEnKm
 	}
-	method precio() = precio
-	method precio(unPrecio){
-		precio = unPrecio
-	}
+
 	method esDestacado(){
 		return precio > 2000
 	}
@@ -37,8 +34,9 @@ class Localidades {
 	//Las localidades deberán saber en qué kilómetro se ubican y deberán poder calcular la distancia a otra localidad.
 		
 	method distanciasCon(distanciaDestino){
-		return (ubicacionEnKm - distanciaDestino)
+		return (self.ubicacionEnKm() - distanciaDestino.ubicacionEnKm()).abs()
 	}
+	
 	
 
 }
