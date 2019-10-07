@@ -10,21 +10,21 @@ class Viaje {
  * * el precio por cada Km recorrido que tiene el transporte (de MEDIO DE TRANSPORTE)
  * (al menos quiero creer que es asi)
  */
-	var property destinoOrigen
-	var property destinoFinal
+	var property localidadOrigen
+	var property localidadFinal
 	var property transporte
-	constructor (unDestinoOrigen,unDestinoFinal,unTransporte){
-		destinoOrigen = unDestinoOrigen
-		destinoFinal = unDestinoFinal
+	constructor (unlocalidadOrigen,unlocalidadFinal,unTransporte){
+		localidadOrigen = unlocalidadOrigen
+		localidadFinal = unlocalidadFinal
 		transporte = unTransporte	
 			}
 			//lo llamo para no hacer de nuevo la cuenta, ya que de la "localidad" sabe cuanto es la distancia
 			//"misma funcion que 'localidad'.distanciaCon(unDestino)" 
 	method distanciaARecorrer(){
-		return destinoOrigen.distanciaCon(destinoFinal)
+		return localidadOrigen.distanciaCon(localidadFinal)
 	}
 			
 	method precioViaje(){
-		return  (transporte.precioPorKm() * self.distanciaARecorrer()) + destinoFinal.precio() 
+		return  (transporte.precioPorKm() * self.distanciaARecorrer()) + localidadFinal.precio() 
 	}
 }

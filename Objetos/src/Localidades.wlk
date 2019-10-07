@@ -1,4 +1,5 @@
 class Localidades {
+	
 	var property nombre
 	var property equipaje = []
 	var property precio

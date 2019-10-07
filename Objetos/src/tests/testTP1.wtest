@@ -123,4 +123,7 @@ test "distancia entre last Toninas con Good Airis son de 100km"{
 test "alberto va de gira con tranporte galacticus , su gira es solo por lastToninas, precio: xxxx "{
 	assert.that(true)
 }
+//usuario viaje y su localidad de origen sea el de destino
+//tema de los costos, transportes , va cambiando a los viajes
+//
 }

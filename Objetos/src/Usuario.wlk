@@ -14,16 +14,19 @@ class Usuario {
 		billeteraVirtualEnBarrileteCosmico = unaBilleteraVirtual
 		localidadOrigen=unaLocalidadDeOrigen
 	}
-	method agregarDestino(unDestino){
+	method agregarViaje(unDestino){
 		viajes.add(unDestino)
 	}
 	
 	method volarA(unDestino){
 		if(self.alcanzaDinero(unDestino)){
-			self.descontarDinero(unDestino)
-			self.agregarDestino(unDestino)
+			
+			self.agregarViaje(unDestino)
 	//ya que el nuevo origen sera los nuevos destinos que tenga, entonces lo modifico
+			
+			var viaje = barrileteCosmico.armarViaje(localidadOrigen,unDestino)
 			localidadOrigen = unDestino.origenFinal()
+			self.descontarDinero(unDestino)
 		}
 		else{
 		throw new ErrorMoneyRejectedException(message = "me duelen los bolsillos");
