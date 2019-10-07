@@ -43,8 +43,7 @@ class barrileteCosmico {
 	 	//los viajes ahora son por separado donde se necesita el origen, que sera donde el USUARIO ESTARA PARADO
 	 	//el destino final, que lo paso por parametro 
 	 	//y el transporte que sera cualquiera
-	 	var unViaje = new Viaje(unUsuario.destinoOrigen(),unDestinoFinal,transporte.anyOne())
-	 	unUsuario.volarA(unDestinoFinal)
+
 	 }
 
 
