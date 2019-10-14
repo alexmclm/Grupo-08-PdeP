@@ -1,8 +1,8 @@
-import barrileteCosmico.*
-import Localidades.*
+import BarrileteCosmico.*
+import Localidad.*
 import Usuario.*
-import MediosDeTransporte.*
-import Viajes.*
+import MedioDeTransporte.*
+import Viaje.*
 
 describe "instancias de destinos, usuarios , medios de tranporte , viajes y barrilete cosmico"{
 	const garlicSea

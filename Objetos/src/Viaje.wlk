@@ -1,6 +1,7 @@
 import Usuario.*
-import Localidades.*
-import MediosDeTransporte.*
+import Localidad.*
+import MedioDeTransporte.*
+
 class Viaje {
 	//aca iria todo el tema de los medios de transporte para cada viaje de cada usuario
 	//es muy dificil de plantearlo, pero hare e intento

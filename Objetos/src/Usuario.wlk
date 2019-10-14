@@ -1,6 +1,7 @@
-import MediosDeTransporte.*
-import Localidades.*
-import barrileteCosmico.*
+import MedioDeTransporte.*
+import Localidad.*
+import BarrileteCosmico.*
+
 class Usuario {
 	var nombre
 	var viajes // "reemplazaria" a los destinos - lugares en el TP1-
@@ -24,7 +25,7 @@ class Usuario {
 			self.agregarViaje(unDestino)
 	//ya que el nuevo origen sera los nuevos destinos que tenga, entonces lo modifico
 			
-			var viaje = barrileteCosmico.armarViaje(localidadOrigen,unDestino)
+			var viaje = BarrileteCosmico.armarViaje(localidadOrigen,unDestino)
 			localidadOrigen = unDestino.origenFinal()
 			self.descontarDinero(unDestino)
 		}

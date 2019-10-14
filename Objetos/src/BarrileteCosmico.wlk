@@ -1,7 +1,8 @@
-import Localidades.*
+import Localidad.*
 import Usuario.*
-import Viajes.*
-class barrileteCosmico {
+import Viaje.*
+
+class BarrileteCosmico {
 	
 	var localidades = #{}
 	var transporte = #{}
@@ -38,14 +39,13 @@ class barrileteCosmico {
 		 return localidades.filter({unaLocalidad => unaLocalidad.esPeligroso()})
 	}
 	// parte 2 del tp
-	 method armarElViaje(unaLocalidad,unDestinoFinal){
+	method armarElViaje(unaLocalidad,unDestinoFinal){
 	 	//por que dice que debo armar el viaje para UN USUARIO
 	 	//los viajes ahora son por separado donde se necesita el origen, que sera donde el USUARIO ESTARA PARADO
 	 	//el destino final, que lo paso por parametro 
 	 	//y el transporte que sera cualquiera
 	 	
-		return new Viajes (unaLocalidad,unDestinoFinal,transporte.anyOne())
-	 }
-
-
+	return new Viaje (unaLocalidad,unDestinoFinal,transporte.anyOne())
+	}
+     
 }

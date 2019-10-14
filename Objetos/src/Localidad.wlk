@@ -1,4 +1,4 @@
-class Localidades {
+class Localidad {
 	
 	var property nombre
 	var property equipaje = []
