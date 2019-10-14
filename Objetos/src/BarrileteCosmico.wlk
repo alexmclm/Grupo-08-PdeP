@@ -9,7 +9,7 @@ class BarrileteCosmico {
 	var usuario
 	
 	constructor (unasLocalidades, unosTransportes,unUsuario){
-		localidades=unasLocalidades
+		localidades = unasLocalidades
 		transporte = unosTransportes
 		usuario = unUsuario
 	}

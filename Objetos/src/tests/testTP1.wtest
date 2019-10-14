@@ -10,35 +10,38 @@ describe "instancias de destinos, usuarios , medios de tranporte , viajes y barr
 	const lastToninas
 	const goodAiris
 	//Usuarios
+	const macri
 	const albertoK
 	const elOsoRulo
 	const pabloHari
-	// mediosDeTransporte
+	// MedioDeTransporte
 	const transporteGalacticus
 	const flechaBus
 	
 	
-	const barrileteCosmico 
-	//decidi instanciar tanto localidades como usuario con Km en 0 , para ver simplemente jajaj
+	const BarrileteCosmico 
+	//decidi instanciar tanto Localidad como usuario con Km en 0 , para ver simplemente jajaj
 		fixture{
-			garlicSea = new Localidades("Garlic Sea", #{"Caña de pescar", "Piloto"},2500,100)
-			silversSea = new Localidades("Silver´s Sea",#{"Protector Solar", "Equipo de Buceo"},1350,250)
-			lastToninas = new Localidades("Last Toninas",#{"Vacuna Gripal", "Vacuna B", "Necronomicon"},3500,300)
-			goodAiris = new Localidades("Good Airis",#{"Cerveza", "Protector Solar"},1500,400)
+			garlicSea = new Localidad("Garlic Sea", #{"Caña de pescar", "Piloto"},2500,100)
+			silversSea = new Localidad("Silver´s Sea",#{"Protector Solar", "Equipo de Buceo"},1350,250)
+			lastToninas = new Localidad("Last Toninas",#{"Vacuna Gripal", "Vacuna B", "Necronomicon"},3500,300)
+			goodAiris = new Localidad("Good Airis",#{"Cerveza", "Protector Solar"},1500,400)
 			
-			pabloHari = new Usuario("pabloHari",#{lastToninas,goodAiris},[],1500,garlicSea)
-			albertoK = new Usuario("el alberto del pueblo", #{},[],2000,silversSea)
-			elOsoRulo = new Usuario("No rulo no hagas eso_ok", #{},[],2500,lastToninas)
-			
+			pabloHari = new Usuario("pabloHari",[lastToninas,goodAiris],[],1500,garlicSea)
+			albertoK = new Usuario("el alberto del pueblo",[],[],2000,silversSea)
+			elOsoRulo = new Usuario("No rulo no hagas eso_ok",[],[],2500,lastToninas)
+			macri = new Usuario("The Cat",[],[],10000,silversSea)
+		
+			}
 			//lo hice clase para hacer este chiche jajajaaj
-			barrileteCosmico = new barrileteCosmico(#{garlicSea,silversSea,lastToninas,goodAiris},#{},#{})
+			BarrileteCosmico = new BarrileteCosmico(#{garlicSea,silversSea,lastToninas,goodAiris},#{},#{})
 			//transportes
-			transporteGalacticus = new MediosDeTransporte(100,10)
-			flechaBus = new MediosDeTransporte(150,15)
+			transporteGalacticus = new MedioDeTransporte(100,10)
+			flechaBus = new MedioDeTransporte(150,15)
 		}
 
 test "Destinos importantes de Barrilete Cosmico : Garlic´s Sea" {
-	var destinos=barrileteCosmico.destinosImportantes()
+	var destinos=BarrileteCosmico.destinosImportantes()
 	assert.equals(#{garlicSea,lastToninas},destinos)
 	//assert.equals("Garlic´s Sea",destinos.nombre()) son 2 destinos importantes
 
@@ -57,33 +60,33 @@ test "Silver´s Sea no es un sitio Peligroso "{
 
 }
 test "Aplicar descuento del 15% a todos los destinos de Barrilete Cosmico-'Garlic Sea debe quedar con $2125'"{
-	barrileteCosmico.darDescuento(15)
+	BarrileteCosmico.darDescuento(15)
 	assert.equals(2125,garlicSea.precio()) 
 }
 test "Aplicar descuento del 15% a todos los destinos de Barrilete Cosmico-'Silver Sea' debe quedar con $1147,5'" {
-	barrileteCosmico.darDescuento(15)
+	BarrileteCosmico.darDescuento(15)
 	assert.equals(1147.5,silversSea.precio()) 
 }
 test "Aplicar descuento del 15% a todos los destinos de Barrilete Cosmico-'Last Toninas' debe quedar con $2975'" {
-	barrileteCosmico.darDescuento(15)
+	BarrileteCosmico.darDescuento(15)
 	assert.equals(2975,lastToninas.precio()) 
 }
 test "Aplicar descuento del 15% a todos los destinos de Barrilete Cosmico-'Good Airis debe quedar con $1275'" {
-	barrileteCosmico.darDescuento(15)
+	BarrileteCosmico.darDescuento(15)
 	assert.equals(1275,goodAiris.precio()) 
 }
 test "Destinos mas peligrosos, debe ser LastToninas"{
 
-	assert.equals(#{lastToninas},barrileteCosmico.lugaresPeligrosos())
+	assert.equals(#{lastToninas},BarrileteCosmico.lugaresPeligrosos())
 	//no hice el metodo
 }
 test "Barrilete Cosmico es una empresa Extrema, si lo es"{
 	
-	assert.that(barrileteCosmico.esExtrema())
+	assert.that(BarrileteCosmico.esExtrema())
 }
 test "Carta de Destinos de Barrilete Cosmico"{
 
-	assert.equals(#{"Garlic Sea","Silver´s Sea","Last Toninas","Good Airis"},barrileteCosmico.cartasDeDestinos().asSet())
+	assert.equals(#{"Garlic Sea","Silver´s Sea","Last Toninas","Good Airis"},BarrileteCosmico.cartasDeDestinos().asSet())
 	
 }
 /*
@@ -126,4 +129,16 @@ test "alberto va de gira con tranporte galacticus , su gira es solo por lastToni
 //usuario viaje y su localidad de origen sea el de destino
 //tema de los costos, transportes , va cambiando a los viajes
 //
+test "Alberto no puede volar a lastToninas y debe largar una excepcion que diga que le duelen los bolsillos"{
+	assert.throwsExceptionWithMessage("me duelen los bolsillos",{albertoK.volarA(lastToninas)})
 }
+
+test "Macri viaja a lastToninas y su localidad de origen cambia"{
+	macri.volarA(lastToninas)
+	assert.equals(lastToninas,macri.localidadOrigen)	
+}
+
+test "El precio de flechaBus es de 15"{
+	assert.equals(15,flechaBus.precioPorKm)
+}
+

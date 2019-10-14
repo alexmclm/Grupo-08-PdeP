@@ -4,10 +4,11 @@ import BarrileteCosmico.*
 
 class Usuario {
 	var nombre
-	var viajes // "reemplazaria" a los destinos - lugares en el TP1-
+	var viajes = [] // "reemplazaria" a los destinos - lugares en el TP1-
 	var usuariosQueSigue
 	var billeteraVirtualEnBarrileteCosmico
 	var localidadOrigen
+	
 	constructor (unNombre,unosViajes,unosUsersQueSigue,unaBilleteraVirtual,unaLocalidadDeOrigen){
 		nombre = unNombre
 		viajes= unosViajes
@@ -15,19 +16,18 @@ class Usuario {
 		billeteraVirtualEnBarrileteCosmico = unaBilleteraVirtual
 		localidadOrigen=unaLocalidadDeOrigen
 	}
-	method agregarViaje(unDestino){
-		viajes.add(unDestino)
-	}
 	
+	method agregarViaje(unViaje){
+		viajes.add(unViaje)
+	}
+
 	method volarA(unDestino){
 		if(self.alcanzaDinero(unDestino)){
-			
-			self.agregarViaje(unDestino)
 	//ya que el nuevo origen sera los nuevos destinos que tenga, entonces lo modifico
-			
 			var viaje = BarrileteCosmico.armarViaje(localidadOrigen,unDestino)
-			localidadOrigen = unDestino.origenFinal()
+			localidadOrigen = unDestino.localidadFinal()
 			self.descontarDinero(unDestino)
+			self.agregarViaje(viaje)	
 		}
 		else{
 		throw new ErrorMoneyRejectedException(message = "me duelen los bolsillos");
@@ -56,6 +56,10 @@ class Usuario {
 	method devolverFollow(){
 		self.perseguirAAlguien(self)
 	}
+	method dondeEsta(){
+		return localidadOrigen
+	}
+	
 	method plataQueTiene() = billeteraVirtualEnBarrileteCosmico
 }
 class ErrorMoneyRejectedException inherits Exception{}
