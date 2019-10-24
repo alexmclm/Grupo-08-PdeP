@@ -28,7 +28,7 @@ class Micros inherits MedioDeTransporte{
 class Trenes inherits MedioDeTransporte{
 	var property millas
 	override method precioPorKm(){
-		return millas * 1.60934
+		return (millas * 1.60934)*2300
 		
 	}
 }
