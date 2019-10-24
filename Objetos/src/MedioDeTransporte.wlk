@@ -11,3 +11,24 @@ class MedioDeTransporte {
  	}
 
 }
+
+class Aviones inherits MedioDeTransporte{
+	var property cantidadTurbinas
+	var property nivelImpulsoPorTurbina //entendi esto, sumado a como pide el precioPorKM
+	
+	//creo que iria override del precioPorKM ya que se supone que cambia en base a su cantidad de turbinas y nivel
+	override method precioPorKm(){
+		return cantidadTurbinas * nivelImpulsoPorTurbina
+	} 
+}
+class Micros inherits MedioDeTransporte{
+	override method precioPorKm() = 5000
+	
+}
+class Trenes inherits MedioDeTransporte{
+	var property millas
+	override method precioPorKm(){
+		return millas * 1.60934
+		
+	}
+}

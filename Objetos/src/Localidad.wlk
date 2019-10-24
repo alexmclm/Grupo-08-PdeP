@@ -36,8 +36,33 @@ class Localidad {
 		
 	method distanciasCon(distanciaDestino){
 		return (self.ubicacionEnKm() - distanciaDestino.ubicacionEnKm()).abs()
-	}
-	
-	
+	}	
 
+}
+class Playa inherits Localidad{
+	
+	override method esPeligroso() = false
+	
+}
+class Montanias inherits Localidad{
+	var property altura
+	
+	override method esPeligroso(){
+		return altura < 5000
+	}
+	override method esDestacado() = true
+}
+class CuidadHistorica inherits Localidad{
+	var museos = #{} // ya que si o si las cuidades historica deben contar con al menos 3 museos
+	var property asistenciaSeguro
+	override method esPeligroso(){
+		if(self.asistenciaSeguro() == true){
+			return true	
+		}else
+		return false
+	}
+	override method esDestacado(){
+		//no se si esta bien hecho, pero dice que aparte de cumplir el requisito de todo destino de tener un precio mayor a $2000
+		return museos.size() > 3 && self.precio()>2000
+	}
 }
