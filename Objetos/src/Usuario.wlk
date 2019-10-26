@@ -8,7 +8,7 @@ class Usuario {
 	var usuariosQueSigue
 	var billeteraVirtualEnBarrileteCosmico
 	var localidadOrigen
-	var perfil 
+ 
 	
 	constructor (unNombre,unosViajes,unosUsersQueSigue,unaBilleteraVirtual,unaLocalidadDeOrigen){
 		nombre = unNombre
@@ -23,7 +23,7 @@ class Usuario {
 	}
 
 	method volarA(unDestino){
-		self.tipoDePerfil()  //Consulto el tipo de perfil
+		
 		if(self.alcanzaDinero(unDestino)){
 	//ya que el nuevo origen sera los nuevos destinos que tenga, entonces lo modifico
 			var viaje = BarrileteCosmico.armarViaje(localidadOrigen,unDestino)
@@ -68,8 +68,31 @@ class Usuario {
 	//rasgos sin tener información en concreto, determinamos que por ahora solo podemos encargarnos
 	//de consultar a que tipo de perfil pertenece, pero sin compararlo contra nada, aunque
 	//existe la posibilidad de hacerlo con un futuro switch case o varios ifs (aunque a nadie le va a gustar ver eso) 
-	method tipoDePerfil() { 
-		return perfil
+	
+	method transporteMasRapido(){
+		return unTransporte.filter({unTransporte => unTransporte.velocidad().max()})
+	}
+	
+	
+}
+
+class Empresario inherits Usuario {
+	method elegirVehiculo(unTransporte){
+		unTransporte.transporteMasRapido()  //No lo probe, pero creo que funciona
 	}
 }
+
+class Estudiante inherits Usuario {
+	method elegirVehiculo(unTransporte){
+		unTransporte.alcanzaDinero() // Creo que puede ver si le alcanza increiblemente
+		unTransporte.transporteMasRapido()  //No se como hacer que pregunte que sea el max de todos
+	}
+}
+
+class Familiero inherits Usuario {
+	// En este caso, no se agrega nada, puesto que solo le importa la familia y basicamente,
+	// si lo puede pagar lo cual ya lo hace cuando intenta volarA()
+}
+
+
 class ErrorMoneyRejectedException inherits Exception{}

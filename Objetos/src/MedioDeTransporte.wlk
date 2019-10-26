@@ -4,10 +4,16 @@ class MedioDeTransporte {
 	//constructor por que sera el precio de cada km de CADA TRANPOSTE que variara , idem para tiempoRecorrido
  	var property tiempoRecorrido
  	var property precioPorKm
+ 	var property velocidad // se asume que ahora los transporte tienen velocidad dado los perfiles
  	
- 	constructor(unTiempo,unPrecio){
+ 	constructor(unTiempo,unPrecio,unaVelocidad){
  		tiempoRecorrido = unTiempo
- 		precioPorKm=unPrecio
+ 		precioPorKm = unPrecio
+ 		velocidad = unaVelocidad 	
+ 		}
+ 	
+ 	method miVelocidad(){
+ 		return velocidad
  	}
 
 }
