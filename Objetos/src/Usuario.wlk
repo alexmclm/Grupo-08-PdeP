@@ -8,6 +8,7 @@ class Usuario {
 	var usuariosQueSigue
 	var billeteraVirtualEnBarrileteCosmico
 	var localidadOrigen
+	var perfil 
 	
 	constructor (unNombre,unosViajes,unosUsersQueSigue,unaBilleteraVirtual,unaLocalidadDeOrigen){
 		nombre = unNombre
@@ -22,6 +23,7 @@ class Usuario {
 	}
 
 	method volarA(unDestino){
+		self.tipoDePerfil()  //Consulto el tipo de perfil
 		if(self.alcanzaDinero(unDestino)){
 	//ya que el nuevo origen sera los nuevos destinos que tenga, entonces lo modifico
 			var viaje = BarrileteCosmico.armarViaje(localidadOrigen,unDestino)
@@ -61,5 +63,13 @@ class Usuario {
 	}
 	
 	method plataQueTiene() = billeteraVirtualEnBarrileteCosmico
+	
+	//Como aun verdaderamente no sabemos bien que hace cada perfil, sino que lo sabemos a grandes
+	//rasgos sin tener información en concreto, determinamos que por ahora solo podemos encargarnos
+	//de consultar a que tipo de perfil pertenece, pero sin compararlo contra nada, aunque
+	//existe la posibilidad de hacerlo con un futuro switch case o varios ifs (aunque a nadie le va a gustar ver eso) 
+	method tipoDePerfil() { 
+		return perfil
+	}
 }
 class ErrorMoneyRejectedException inherits Exception{}
