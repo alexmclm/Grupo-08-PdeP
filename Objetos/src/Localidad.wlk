@@ -48,7 +48,7 @@ class Montanias inherits Localidad{
 	var property altura
 	
 	override method esPeligroso(){
-		return altura < 5000
+		return altura > 5000
 	}
 	override method esDestacado() = true
 }

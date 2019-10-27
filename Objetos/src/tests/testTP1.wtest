@@ -14,12 +14,21 @@ describe "instancias de destinos, usuarios , medios de tranporte , viajes y barr
 	const albertoK
 	const elOsoRulo
 	const pabloHari
+	const macron
+	const espert
 	// MedioDeTransporte
-	const transporteGalacticus
 	const flechaBus
-	
+	const flyBondi
+	const thm
+		
 	
 	const BarrileteCosmico 
+	
+	
+	//destinosPersonalizos
+	const playa
+	const montania
+	const cuidadHistorica
 	//decidi instanciar tanto Localidad como usuario con Km en 0 , para ver simplemente jajaj
 		fixture{
 			garlicSea = new Localidad("Garlic Sea", #{"Caña de pescar", "Piloto"},2500,100)
@@ -32,13 +41,28 @@ describe "instancias de destinos, usuarios , medios de tranporte , viajes y barr
 			elOsoRulo = new Usuario("No rulo no hagas eso_ok",[],[],2500,lastToninas)
 			macri = new Usuario("The Cat",[],[],10000,silversSea)
 		
-			}
+			
 			//lo hice clase para hacer este chiche jajajaaj
 			BarrileteCosmico = new BarrileteCosmico(#{garlicSea,silversSea,lastToninas,goodAiris},#{},#{})
+				
 			//transportes
-			transporteGalacticus = new MedioDeTransporte(100,10)
-			flechaBus = new MedioDeTransporte(150,15)
-		}
+			flechaBus = new Micro(10,100,10)
+			flyBondi = new Avion(100,10,100)
+			thm = new Tren (100,100,100)
+			
+			//perfiles Usuario
+			macron = new Empresario("The Cat",[],[],10000,silversSea)
+			espert = new Estudiante("No rulo no hagas eso_ok",[],[],2500,lastToninas)
+	
+			//Destinos Personalizados
+			// no se por que la palabra personalizado, me hace creer que se refiere a objetos.........
+			playa = new Playa("playa",#{},2000,100)
+			montania = new Montanias("montania",#{},1000,50)
+			cuidadHistorica = new CuidadHistorica("Le Cidad",#{},500,80)
+//re- acomode algunas instancias del fxture por que tiraba error 
+//ahora con esto deberia no romper, al menos aca			
+		}	
+		
 
 test "Destinos importantes de Barrilete Cosmico : Garlic´s Sea" {
 	var destinos=BarrileteCosmico.destinosImportantes()
@@ -135,10 +159,38 @@ test "Alberto no puede volar a lastToninas y debe largar una excepcion que diga 
 
 test "Macri viaja a lastToninas y su localidad de origen cambia"{
 	macri.volarA(lastToninas)
-	assert.equals(lastToninas,macri.localidadOrigen)	
+	assert.equals(lastToninas,macri.localidadOrigen())	
 }
 
 test "El precio de flechaBus es de 15"{
-	assert.equals(15,flechaBus.precioPorKm)
+	assert.equals(15,flechaBus.precioPorKm())
+}
+// aca arranca la deseada y ultima , por favor, parte del tp3 jajajajaaj	
+test "el precio por km usando medio de transporte FlyBondi teniendo en cuenta que tiene 4 turbinas y producen 200Joules de potencia es de......."{
+	flyBondi.cantidadTurbinas(4)
+	flyBondi.nivelImpulsoPorTurbina(200)
+	assert.equals(800,flyBondi.precioPorKm())	
+}	
+test "el precio por km usando medio de transporte thm teniendo en cuenta que se recorrio 10 millas"{
+	thm.millas(10)
+	assert.equals(37014.32,thm.precioPorKm())
+}	
+test "el precio por km usando meiod de transporte flecha bus es de 5000"{
+	assert.equals(5000,flechaBus.precioPorKm())
+}	
+test "las playas no son peligrosas"{
+	assert.notThat(playa.esPeligrosa())
+}
+test " las montanias con altura de 15000m es peligrosa si no tiene asistencia de seguro"{
+
+	assert.that(montania.esPeligroso())
+}
+test "las montanias siempre son destacadas"{
+	assert.that(montania.esDestacado())
+}
+test "hay 3 museos en la cuidades historicas en los cuales no se destaca "{
+	cuidadHistorica.museos(#{"museo de ana frank","museo de los masones","museo de la utn?"})
+	assert.that(cuidadHistorica.esDestacado())
+ }
 }
 
