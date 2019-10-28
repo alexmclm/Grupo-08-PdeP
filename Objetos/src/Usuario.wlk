@@ -8,14 +8,15 @@ class Usuario {
 	var usuariosQueSigue
 	var billeteraVirtualEnBarrileteCosmico
 	var localidadOrigen
- 
+ 	var property asistenciaSeguro
 	
-	constructor (unNombre,unosViajes,unosUsersQueSigue,unaBilleteraVirtual,unaLocalidadDeOrigen){
+	constructor (unNombre,unosViajes,unosUsersQueSigue,unaBilleteraVirtual,unaLocalidadDeOrigen,unaAsistencia){
 		nombre = unNombre
 		viajes= unosViajes
 		usuariosQueSigue= unosUsersQueSigue
 		billeteraVirtualEnBarrileteCosmico = unaBilleteraVirtual
 		localidadOrigen=unaLocalidadDeOrigen
+		asistenciaSeguro = unaAsistencia
 	}
 	
 	method agregarViaje(unViaje){
@@ -84,14 +85,16 @@ class Empresario inherits Usuario {
 
 class Estudiante inherits Usuario {
 	method elegirVehiculo(unTransporte){
-		unTransporte.alcanzaDinero() // Creo que puede ver si le alcanza increiblemente
-		unTransporte.transporteMasRapido()  //No se como hacer que pregunte que sea el max de todos
+	//	unTransporte.alcanzaDinero() // Creo que puede ver si le alcanza increiblemente
+	// 	unTransporte.transporteMasRapido()  //No se como hacer que pregunte que sea el max de todos
 	}
 }
 
 class Familiero inherits Usuario {
-	// En este caso, no se agrega nada, puesto que solo le importa la familia y basicamente,
-	// si lo puede pagar lo cual ya lo hace cuando intenta volarA()
+	method elegirVehiculo(unMedioTransporte){
+		unMedioTransporte.transportes().anyOne()
+		//ya que puede elegir a cualquiera de una lista de transporte
+	} 
 }
 
 

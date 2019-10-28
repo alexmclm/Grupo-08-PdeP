@@ -6,6 +6,7 @@ class MedioDeTransporte {
  	var property precioPorKm
  	var property velocidad // se asume que ahora los transporte tienen velocidad dado los perfiles
  	
+ 	var property transportes = #{} // esto dira cuantos transportes tiene en su dominio para usuario
  	constructor(unTiempo,unPrecio,unaVelocidad){
  		tiempoRecorrido = unTiempo
  		precioPorKm = unPrecio
@@ -14,6 +15,9 @@ class MedioDeTransporte {
  	
  	method miVelocidad(){
  		return velocidad
+ 	}
+ 	method transporteMasRapido(){
+ 		transportes.max{unTransporte => unTransporte.velocidad()}
  	}
 
 }
@@ -32,7 +36,7 @@ class Micro inherits MedioDeTransporte{
 	
 }
 class Tren inherits MedioDeTransporte{
-	var property millas
+	var property millas 
 	override method precioPorKm(){
 		return (millas * 1.60934)*2300
 		
@@ -40,8 +44,13 @@ class Tren inherits MedioDeTransporte{
 }
 
 class Barco inherits MedioDeTransporte{
-	var property porcentajeDeChocar
+	var porcentajeDeChocar = variableDeTransporte.unaVariable()
 	override method precioPorKm(){
 		return (1000 * porcentajeDeChocar)
 	}
+	
+	
+}
+object variableDeTransporte {
+	var property unaVariable
 }

@@ -4,6 +4,7 @@ import Usuario.*
 import MedioDeTransporte.*
 import Viaje.*
 
+
 describe "instancias de destinos, usuarios , medios de tranporte , viajes y barrilete cosmico"{
 	const garlicSea
 	const silversSea
@@ -36,10 +37,10 @@ describe "instancias de destinos, usuarios , medios de tranporte , viajes y barr
 			lastToninas = new Localidad("Last Toninas",#{"Vacuna Gripal", "Vacuna B", "Necronomicon"},3500,300)
 			goodAiris = new Localidad("Good Airis",#{"Cerveza", "Protector Solar"},1500,400)
 			
-			pabloHari = new Usuario("pabloHari",[lastToninas,goodAiris],[],1500,garlicSea)
-			albertoK = new Usuario("el alberto del pueblo",[],[],2000,silversSea)
-			elOsoRulo = new Usuario("No rulo no hagas eso_ok",[],[],2500,lastToninas)
-			macri = new Usuario("The Cat",[],[],10000,silversSea)
+			pabloHari = new Usuario("pabloHari",[lastToninas,goodAiris],[],1500,garlicSea,true)
+			albertoK = new Usuario("el alberto del pueblo",[],[],2000,silversSea,true)
+			elOsoRulo = new Usuario("No rulo no hagas eso_ok",[],[],2500,lastToninas,true)
+			macri = new Usuario("The Cat",[],[],10000,silversSea,true)
 		
 			
 			//lo hice clase para hacer este chiche jajajaaj
@@ -48,17 +49,17 @@ describe "instancias de destinos, usuarios , medios de tranporte , viajes y barr
 			//transportes
 			flechaBus = new Micro(10,100,10)
 			flyBondi = new Avion(100,10,100)
-			thm = new Tren (100,100,100)
+			thm = new Tren(100,100,100)
 			
 			//perfiles Usuario
-			macron = new Empresario("The Cat",[],[],10000,silversSea)
-			espert = new Estudiante("No rulo no hagas eso_ok",[],[],2500,lastToninas)
+			macron = new Empresario("The Cat",[],[],10000,silversSea,true)
+			espert = new Estudiante("No rulo no hagas eso_ok",[],[],2500,lastToninas,true)
 	
 			//Destinos Personalizados
 			// no se por que la palabra personalizado, me hace creer que se refiere a objetos.........
 			playa = new Playa("playa",#{},2000,100)
 			montania = new Montanias("montania",#{},1000,50)
-			cuidadHistorica = new CuidadHistorica("Le Cidad",#{},500,80)
+			cuidadHistorica = new CuidadHistorica("Le Cidad",#{"seguro de asistencia al viajero"},500,80)
 //re- acomode algunas instancias del fxture por que tiraba error 
 //ahora con esto deberia no romper, al menos aca			
 		}	
@@ -172,25 +173,26 @@ test "el precio por km usando medio de transporte FlyBondi teniendo en cuenta qu
 	assert.equals(800,flyBondi.precioPorKm())	
 }	
 test "el precio por km usando medio de transporte thm teniendo en cuenta que se recorrio 10 millas"{
-	thm.millas(10)
+	// variableDeTransporte.unaVariable(10)
+	// var millas = variableDeTransporte.unaVariable(10)
 	assert.equals(37014.32,thm.precioPorKm())
 }	
 test "el precio por km usando meiod de transporte flecha bus es de 5000"{
 	assert.equals(5000,flechaBus.precioPorKm())
 }	
 test "las playas no son peligrosas"{
-	assert.notThat(playa.esPeligrosa())
+	assert.notThat(playa.esPeligroso())
 }
 test " las montanias con altura de 15000m es peligrosa si no tiene asistencia de seguro"{
-
+	
 	assert.that(montania.esPeligroso())
 }
 test "las montanias siempre son destacadas"{
 	assert.that(montania.esDestacado())
 }
 test "hay 3 museos en la cuidades historicas en los cuales no se destaca "{
-	cuidadHistorica.museos(#{"museo de ana frank","museo de los masones","museo de la utn?"})
-	assert.that(cuidadHistorica.esDestacado())
+	cuidadHistorica.museos().add(#{"museo de ana frank","museo de los masones","museo de la utn?"})
+	assert.notThat(cuidadHistorica.esDestacado())
  }
 }
 

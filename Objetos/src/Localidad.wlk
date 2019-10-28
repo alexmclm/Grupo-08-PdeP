@@ -24,7 +24,7 @@ class Localidad {
 	method agregarAlEquipaje(unElemento){
 		equipaje.add(unElemento)
 	}
-	
+	//seria mas entendible si se llama esPeligrosoPara(unUsuario)
 	method esPeligroso(){
 		return equipaje.any({unEquipaje => unEquipaje.contains("Vacuna")})
 	}
@@ -53,16 +53,18 @@ class Montanias inherits Localidad{
 	override method esDestacado() = true
 }
 class CuidadHistorica inherits Localidad{
-	var museos = #{} // ya que si o si las cuidades historica deben contar con al menos 3 museos
-	var property asistenciaSeguro
+	var property museos = #{} // ya que si o si las cuidades historica deben contar con al menos 3 museos
+
 	override method esPeligroso(){
-		if(self.asistenciaSeguro() == true){
-			return true	
-		}else
-		return false
+		//re - defino esta funcion ya que en ningun momento alardea que el viajero deba tener el seguro de asistencia 
+		//sino, es mas de parte de las localidades en el que si o si su equipaje deba tener ese seguro
+		return self.equipaje().contains("seguro de asistencia al viajero")
 	}
 	override method esDestacado(){
 		//no se si esta bien hecho, pero dice que aparte de cumplir el requisito de todo destino de tener un precio mayor a $2000
 		return museos.size() > 3 && self.precio()>2000
+	}
+	method agregarMuseos(unosMuseos){
+		museos.add(unosMuseos)
 	}
 }
