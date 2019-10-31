@@ -1,6 +1,49 @@
+import BarrileteCosmico.*
+import Localidad.*
+import Usuario.*
+import MedioDeTransporte.*
+import Viaje.*
 
-test "testX" {
+describe " Instancias de Usuario"{
+	
+	//Usuarios
+	const macri
+	const albertoK
+	const elOsoRulo
+	const pabloHari
+	//perfiles Usuario
+	const macron
+	const espert
+	const alberto
+	//Localidades
+	const garlicSea
+	const silversSea
+	const lastToninas
+	const goodAiris
+	
+	fixture{
+			garlicSea = new Localidad("Garlic Sea", #{"Caña de pescar", "Piloto"},2500,100)
+			silversSea = new Localidad("Silver´s Sea",#{"Protector Solar", "Equipo de Buceo"},1350,250)
+			lastToninas = new Localidad("Last Toninas",#{"Vacuna Gripal", "Vacuna B", "Necronomicon"},3500,300)
+			goodAiris = new Localidad("Good Airis",#{"Cerveza", "Protector Solar"},1500,400)
+		
+			pabloHari = new Usuario("pabloHari",[lastToninas,goodAiris],[],1500,garlicSea,true)
+			albertoK = new Usuario("el alberto del pueblo",[],[],2000,silversSea,true)
+			elOsoRulo = new Usuario("No rulo no hagas eso_ok",[],[],2500,lastToninas,true)
+			macri = new Usuario("The Cat",[],[],10000,silversSea,true)
+			//perfiles Usuario
+			macron = new Empresario("The Cat",[],[],10000,silversSea,true)
+			espert = new Estudiante("No rulo no hagas eso_ok",[],[],2500,lastToninas,true)
+			alberto = new Familiero("Family Dylan K",[],[],3000,goodAiris,false)
+	}
+	
+	
+	
+	
+	
+	test "testX" {
 
 	assert.that(true)
 
+}
 }

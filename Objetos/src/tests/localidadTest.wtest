@@ -1,6 +1,82 @@
+import Localidad.*
+import Usuario.*
 
-test "testX" {
-
-	assert.that(true)
-
+describe" Instancias de Localidades"{
+	//Localidades
+	const garlicSea
+	const silversSea
+	const lastToninas
+	const goodAiris
+	//destinosPersonalizos
+	const playa
+	const montania
+	const cuidadHistorica
+fixture{
+			garlicSea = new Localidad("Garlic Sea", #{"Caña de pescar", "Piloto"},2500,100)
+			silversSea = new Localidad("Silver´s Sea",#{"Protector Solar", "Equipo de Buceo"},1350,250)
+			lastToninas = new Localidad("Last Toninas",#{"Vacuna Gripal", "Vacuna B", "Necronomicon"},3500,300)
+			goodAiris = new Localidad("Good Airis",#{"Cerveza", "Protector Solar"},1500,400)
+			
+			playa = new Playa("playa",#{},2000,100)
+			montania = new Montanias("montania",#{},1000,50)
+			cuidadHistorica = new CuidadHistorica("Le Cidad",#{"seguro de asistencia al viajero"},500,80)
+	
+	
+	}	
+	
+	test "#Descuento: Al aplicar descuento del 25% a 'Last Toninas', su precio es de $2625"{
+		lastToninas.precioConDescuento(25)
+		assert.equals(2625,lastToninas.precio())
+	}
+	test "#Descuento: Al aplicar descuento del 25% a 'Last Toninas', agregar al equipaje 'Certificado De Descuento' "{
+		lastToninas.precioConDescuento(25)
+		assert.that(lastToninas.equipaje().contains("Certificado De Descuento"))
+	}
+	test "#Peligroso: Silver´s Sea no es un sitio Peligroso "{
+			assert.notThat(silversSea.esPeligroso())
+	
+	}
+	test "#Peligroso: Garlic Sea No es un sitio Peligroso"{
+		assert.notThat(garlicSea.esPeligroso())
+	}
+	test "#Peligroso: Last Toninas es un sitio Peligroso"{
+		assert.that(lastToninas.esPeligroso())
+	}
+	test "#Peligroso: Good Airis No un sitio Peligroso"{
+		assert.notThat(goodAiris.esPeligroso())
+	}
+	test "#DistanciaCon: la distancia entre  garlic sea y last toninas son de 200 km" {
+	 	
+		assert.equals(200,garlicSea.distanciasCon(lastToninas))
+	 }
+	test "#DistanciaCon: distancia entre garlic sea y silversSea son de 150km" {
+		assert.equals(150,garlicSea.distanciasCon(silversSea))
+	}
+	test "#DistanciaCon: distancia entre garlicSea y good airis son de 300km "{
+		assert.equals(300,garlicSea.distanciasCon(goodAiris))
+	}
+	test "#DistanciaCon: distancia entre Sirvers Sea y Last Toninas son de 50km"{
+		assert.equals(50,silversSea.distanciasCon(lastToninas))
+	}
+	test "#DistanciaCon: distancia entre Silvers Sea y Good Airis son de 150km"{
+		assert.equals(150,silversSea.distanciasCon(goodAiris))
+	}
+	test "#DistanciaCon: distancia entre last Toninas con Good Airis son de 100km"{
+		assert.equals(100,lastToninas.distanciasCon(goodAiris))
+	}
+	test "las playas no son peligrosas"{
+	assert.notThat(playa.esPeligroso())
+}
+	test " las montanias con altura de 15000m es peligrosa si no tiene asistencia de seguro"{
+		montania.altura(15000)
+		assert.that(montania.esPeligroso())
+	}
+	test "las montanias siempre son destacadas"{
+		assert.that(montania.esDestacado())
+	}
+	test "hay 3 museos en la cuidades historicas en los cuales no se destaca "{
+		cuidadHistorica.museos().add(#{"museo de ana frank","museo de los masones","museo de la utn?"})
+		assert.notThat(cuidadHistorica.esDestacado())
+	 }
+	
 }

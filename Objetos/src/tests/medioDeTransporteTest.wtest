@@ -1,6 +1,62 @@
+import MedioDeTransporte.*
 
-test "testX" {
-
-	assert.that(true)
-
+describe "Instancias de Medios de Transportes"{
+	// MedioDeTransporte
+	const argentinaTodoTransporte
+	const flechaBus
+	const flyBondi
+	const thm
+	const buqueBus
+	
+	fixture{
+						
+			//transportes
+			argentinaTodoTransporte = new MedioDeTransporte(0,0,0)
+			flechaBus = new Micro(10,100,10)
+			flyBondi = new Avion(100,10,50)
+			thm = new Tren(100,100,100)
+			buqueBus = new Barco(10,10,50)
+			
+			
+	}
+// --------------------------------------- TEST TP2 ---------------------------------------------------
+ // en esta parte para el TP2 no hay mucho que se pueda hacer, mas bien son en los otros archivos
+	
+// --------------------------------------- TEST TP3 ---------------------------------------------------
+	test "#TransporteRapido:  el transporte mas rapido, debe ser thm" {
+		argentinaTodoTransporte.transportes().add(flechaBus)
+		argentinaTodoTransporte.transportes().add(flyBondi)
+		argentinaTodoTransporte.transportes().add(thm)
+		argentinaTodoTransporte.transportes().add(buqueBus)
+		assert.equals(thm,argentinaTodoTransporte.transporteMasRapido())
+		}
+	test "#TransporteRapido: el transporte mas lento debe ser flechabus"{
+		argentinaTodoTransporte.transportes().add(flechaBus)
+		argentinaTodoTransporte.transportes().add(flyBondi)
+		argentinaTodoTransporte.transportes().add(thm)
+		argentinaTodoTransporte.transportes().add(buqueBus)
+		assert.equals(flechaBus, argentinaTodoTransporte.transporteMasLento())
+	}	
+	
+	test"#TransportePrecioAvion: el precio para un avion de 4 turbinas cuyo impulso es de 300 J es de 1200"{
+		flyBondi.cantidadTurbinas(4)
+		flyBondi.nivelImpulsoPorTurbina(300)
+		assert.equals(1200,flyBondi.precioPorKm())
+	}
+	test"#TransportePrecioMicro: el precio para un micro es siempre 5000"{
+		assert.equals(5000,flechaBus.precioPorKm())
+	}
+	test"#TransportePrecioTren: el precio por KM de un tren que tiene 5 millas es de 18507.41"{
+		variableDeTransporte.unaVariable(5)
+		thm.millas(variableDeTransporte.unaVariable())
+		
+		assert.equals(18507.41,thm.precioPorKm())
+	}
+	test"#TransportePrecioBarco: el precio por Km en un barco que tiene 5% de probabilidad de choche es ...."{
+		variableDeTransporte.unaVariable(5)
+		buqueBus.porcentajeDeChocar(variableDeTransporte.unaVariable(5))
+		assert.equals(100,buqueBus.precioPorKm())
+	}
+	
+		
 }

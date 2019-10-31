@@ -17,7 +17,10 @@ class MedioDeTransporte {
  		return velocidad
  	}
  	method transporteMasRapido(){
- 		transportes.max{unTransporte => unTransporte.velocidad()}
+ 		return transportes.max {unTransporte => unTransporte.velocidad()}
+ 	}
+ 	method transporteMasLento(){
+ 		return transportes.min {unTransporte => unTransporte.velocidad()}
  	}
 
 }
@@ -36,7 +39,7 @@ class Micro inherits MedioDeTransporte{
 	
 }
 class Tren inherits MedioDeTransporte{
-	var property millas 
+	var property millas = variableDeTransporte.unaVariable()
 	override method precioPorKm(){
 		return (millas * 1.60934)*2300
 		
@@ -44,9 +47,9 @@ class Tren inherits MedioDeTransporte{
 }
 
 class Barco inherits MedioDeTransporte{
-	var porcentajeDeChocar = variableDeTransporte.unaVariable()
+	var property porcentajeDeChocar = variableDeTransporte.unaVariable()
 	override method precioPorKm(){
-		return (1000 * porcentajeDeChocar)
+		return ((1000 * porcentajeDeChocar)/100)
 	}
 	
 	
