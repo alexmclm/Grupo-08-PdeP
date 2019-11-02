@@ -28,4 +28,8 @@ class Viaje {
 	method precioViaje(){
 		return  (transporte.precioPorKm() * self.distanciaARecorrer()) + localidadFinal.precio() 
 	}
+	
+	method susTransportes(){
+		return transporte 
+	}
 }

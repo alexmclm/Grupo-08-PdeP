@@ -22,6 +22,9 @@ class MedioDeTransporte {
  	method transporteMasLento(){
  		return transportes.min {unTransporte => unTransporte.velocidad()}
  	}
+ 	method transporteMasBarato(unUsuario){
+ 		return transportes.filter({unTransporte => (unTransporte.precioPorKm() <= unUsuario.billeteraVirtualEnBarrileteCosmico())})
+ 	} //No lo probe pero en teoria filtra los transportes que el usuario puede costear 
 
 }
 

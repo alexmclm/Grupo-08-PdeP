@@ -70,10 +70,6 @@ class Usuario {
 	//de consultar a que tipo de perfil pertenece, pero sin compararlo contra nada, aunque
 	//existe la posibilidad de hacerlo con un futuro switch case o varios ifs (aunque a nadie le va a gustar ver eso) 
 	
-	method transporteMasRapido(){
-		return unTransporte.filter({unTransporte => unTransporte.velocidad().max()})
-	}
-	
 	
 }
 
@@ -85,8 +81,7 @@ class Empresario inherits Usuario {
 
 class Estudiante inherits Usuario {
 	method elegirVehiculo(unTransporte){
-	//	unTransporte.alcanzaDinero() // Creo que puede ver si le alcanza increiblemente
-	// 	unTransporte.transporteMasRapido()  //No se como hacer que pregunte que sea el max de todos
+		return unTransporte.transporteMasRapido().transporteMasBarato()
 	}
 }
 
