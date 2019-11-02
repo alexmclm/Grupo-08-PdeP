@@ -20,6 +20,11 @@ describe " Instancias de Usuario"{
 	const silversSea
 	const lastToninas
 	const goodAiris
+	//Transportes
+	const avioncitoJayJay
+	const elTrenTomas
+	const elFlecha
+	const elTitanic
 	
 	fixture{
 			garlicSea = new Localidad("Garlic Sea", #{"Caña de pescar", "Piloto"},2500,100)
@@ -35,15 +40,19 @@ describe " Instancias de Usuario"{
 			macron = new Empresario("The Cat",[],[],10000,silversSea,true)
 			espert = new Estudiante("No rulo no hagas eso_ok",[],[],2500,lastToninas,true)
 			alberto = new Familiero("Family Dylan K",[],[],3000,goodAiris,false)
+			
+			//Medios de transporte para la prueba
+			avioncitoJayJay = new Avion (100,3000,500)
+			elTrenTomas = new Tren (300,500,70)
+			elFlecha = new Micro (200,800,120)
+			elTitanic = new Barco (600,1200,20)
 	}
 	
 	
 	
-	
-	
-	test "testX" {
-
+	test "Usuario Empresario toma vehiculo mas rapido" {
+	// Arranque a definir los test
 	assert.that(true)
+	} 
 
-}
 }
