@@ -51,8 +51,8 @@ describe " Instancias de Usuario"{
 	
 	
 	test "Usuario Empresario toma vehiculo mas rapido" {
-	// Arranque a definir los test
-	assert.that(true)
+	macron.elegirVehiculo(avioncitoJayJay)
+	assert.equals(avioncitoJayJay,MedioDeTransporte.transporteMasRapido()) // Preguntar profesor!
 	} 
 
 }

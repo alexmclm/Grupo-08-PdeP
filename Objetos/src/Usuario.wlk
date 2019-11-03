@@ -1,6 +1,7 @@
 import MedioDeTransporte.*
 import Localidad.*
 import BarrileteCosmico.*
+import MedioDeTransporte.MedioDeTransporte
 
 class Usuario {
 	var nombre
@@ -74,14 +75,14 @@ class Usuario {
 }
 
 class Empresario inherits Usuario {
-	method elegirVehiculo(unTransporte){
-		unTransporte.transporteMasRapido()  //No lo probe, pero creo que funciona
+	method elegirVehiculo(){
+		MedioDeTransporte.transporteMasRapido()  //No lo probe, pero creo que funciona
 	}
 }
 
 class Estudiante inherits Usuario {
-	method elegirVehiculo(unTransporte){
-		return unTransporte.transporteMasRapido().transporteMasBarato()
+	method elegirVehiculo(){
+		MedioDeTransporte.transporteMasRapido().transporteMasBarato()
 	}
 }
 
